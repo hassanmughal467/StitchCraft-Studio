@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { organizationJsonLd } from "@/lib/seo";
+import { siteEnv } from "@/lib/env";
+import { organizationJsonLd, robotsFor } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import "./globals.css";
@@ -16,36 +17,26 @@ const sans = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase: new URL(siteEnv.baseUrl),
   title: {
-    default: `${site.name} — ${site.tagline}`,
-    template: `%s — ${site.name}`,
+    default: `Embroidery Digitizing & Custom Patches | ${site.name}`,
+    template: `%s | ${site.name}`,
   },
   description: site.description,
   applicationName: site.name,
-  keywords: [
-    "embroidery digitizing service",
-    "vector tracing",
-    "custom embroidered patches",
-    "embroidered apparel",
-    "screen printing",
-    "custom hats and caps",
-    "3D puff digitizing",
-  ],
+  robots: robotsFor(),
   openGraph: {
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
-    url: site.url,
     siteName: site.name,
     locale: "en_US",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
-  },
-  robots: { index: true, follow: true },
+  twitter: { card: "summary_large_image" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#20252B",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

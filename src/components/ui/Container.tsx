@@ -9,5 +9,5 @@ export function Container({
   className?: string;
   as?: "div" | "section" | "header" | "footer" | "nav";
 }) {
-  return <Tag className={cn("mx-auto w-full max-w-6xl px-5 sm:px-8", className)}>{children}</Tag>;
+  return <Tag className={cn("mx-auto w-full max-w-[75rem] px-5 sm:px-8", className)}>{children}</Tag>;
 }

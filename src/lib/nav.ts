@@ -1,3 +1,5 @@
+import { hasPublishedPortfolio } from "@/lib/portfolio";
+
 export type NavItem = {
   href: string;
   label: string;
@@ -36,20 +38,19 @@ export const studioNav: NavGroup = {
   children: [
     { href: "/how-it-works", label: "How It Works" },
     { href: "/about", label: "About" },
-    { href: "/resources", label: "Resources" },
+    { href: "/resources", label: "Guides" },
+    { href: "/faq", label: "FAQ" },
   ],
 };
 
+/** Portfolio appears in navigation only once published work exists. */
 export const primaryLinks: NavItem[] = [
-  { href: "/portfolio", label: "Portfolio" },
+  ...(hasPublishedPortfolio() ? [{ href: "/portfolio", label: "Portfolio" }] : []),
   { href: "/trade", label: "For Trade" },
   { href: "/contact", label: "Contact" },
 ];
 
-export const footerServices: NavItem[] = [
-  ...digitizingNav.children,
-  ...productsNav.children,
-];
+export const footerServices: NavItem[] = [...digitizingNav.children, ...productsNav.children];
 
 export const footerHelp: NavItem[] = [
   { href: "/how-it-works", label: "How it works" },
@@ -57,15 +58,14 @@ export const footerHelp: NavItem[] = [
   { href: "/shipping", label: "Shipping & delivery" },
   { href: "/artwork-guidelines", label: "Artwork guidelines" },
   { href: "/file-formats", label: "File format guide" },
-  { href: "/account", label: "Account" },
   { href: "/quote", label: "Request a quote" },
 ];
 
 export const footerCompany: NavItem[] = [
   { href: "/about", label: "About" },
-  { href: "/trade", label: "For trade / B2B" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/resources", label: "Resources" },
+  { href: "/trade", label: "For trade" },
+  ...(hasPublishedPortfolio() ? [{ href: "/portfolio", label: "Portfolio" }] : []),
+  { href: "/resources", label: "Guides" },
   { href: "/contact", label: "Contact" },
 ];
 

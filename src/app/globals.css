@@ -21,7 +21,7 @@
   --color-gold: #c97744;
   --color-azure: #174a66;
   --color-steel: #174a66;
-  --color-copper-soft: #d7a07a;
+  --color-copper-soft: #e6b896; /* text on blue/charcoal: >= 5:1 */
   --font-sans: var(--font-sans-loaded), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-sans-loaded), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-sans-loaded), ui-sans-serif, system-ui, sans-serif;

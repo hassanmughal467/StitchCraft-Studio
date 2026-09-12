@@ -26,7 +26,7 @@ export function PageHero({
       )}
     >
       <Container>
-        {eyebrow ? <Eyebrow className={dark ? "text-copper" : undefined}>{eyebrow}</Eyebrow> : null}
+        {eyebrow ? <Eyebrow className={dark ? "text-copper-soft" : undefined}>{eyebrow}</Eyebrow> : null}
         <h1 className="mt-3 max-w-4xl text-4xl font-semibold tracking-[-0.03em] sm:text-5xl">{title}</h1>
         {lede ? <p className={cn("mt-5 max-w-2xl text-lg leading-8", dark ? "text-card/72" : "text-ink-soft")}>{lede}</p> : null}
         {children}

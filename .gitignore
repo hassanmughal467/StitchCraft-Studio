@@ -38,3 +38,7 @@ yarn-error.log*
 next-env.d.ts
 .vercel
 .env*
+!.env.example
+
+# local quote intake store (private customer data — never commit)
+/.data/

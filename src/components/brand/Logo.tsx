@@ -16,7 +16,8 @@ export function Logo({ className, invert = false }: { className?: string; invert
           <circle cx="18" cy="6.2" r="1.4" fill="currentColor" />
         </svg>
       </span>
-      <span className="leading-none">
+      <span className="sr-only">Stitchcraft Studio</span>
+      <span className="leading-none" aria-hidden>
         <span className={cn("block text-[1.05rem] font-semibold tracking-[-0.02em]", invert ? "text-card" : "text-charcoal")}>
           Stitchcraft
         </span>

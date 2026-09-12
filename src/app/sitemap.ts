@@ -1,44 +1,44 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/lib/site";
+import { absoluteUrl, siteEnv } from "@/lib/env";
+import { hasPublishedPortfolio, publishedPortfolio } from "@/lib/portfolio";
+import { guides, services } from "@/lib/services";
 
-const paths = [
-  "/",
-  "/digitizing-artwork",
-  "/embroidery-digitizing",
-  "/vector-tracing",
-  "/custom-logo-design",
-  "/custom-products",
-  "/custom-patches",
-  "/embroidered-apparel",
-  "/screen-printing",
-  "/custom-hats",
-  "/portfolio",
-  "/trade",
-  "/how-it-works",
-  "/about",
-  "/resources",
-  "/resources/choosing-a-patch-type",
-  "/resources/embroidery-proofs",
-  "/resources/artwork-for-printing",
-  "/quote",
-  "/contact",
-  "/faq",
-  "/shipping",
-  "/artwork-guidelines",
-  "/file-formats",
-  "/privacy",
-  "/terms",
-  "/refund-policy",
-  "/cookies",
-  "/accessibility",
-];
+/** Public, canonical pages only. Quote, account, API and utility routes are excluded. */
+export function publicPaths() {
+  const paths = [
+    "/",
+    "/digitizing-artwork",
+    "/custom-products",
+    ...services.map((s) => s.href),
+    "/trade",
+    "/how-it-works",
+    "/about",
+    "/resources",
+    ...guides.map((g) => g.href),
+    "/contact",
+    "/faq",
+    "/shipping",
+    "/artwork-guidelines",
+    "/file-formats",
+    "/privacy",
+    "/terms",
+    "/refund-policy",
+    "/cookies",
+    "/accessibility",
+  ];
+  if (hasPublishedPortfolio()) {
+    paths.push("/portfolio", ...publishedPortfolio().map((item) => `/portfolio/${item.slug}`));
+  }
+  return paths;
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-  return paths.map((path) => ({
-    url: `${site.url}${path === "/" ? "" : path}`,
-    lastModified: now,
-    changeFrequency: path === "/" || path === "/quote" ? "weekly" : "monthly",
-    priority: path === "/" ? 1 : path === "/quote" ? 0.9 : 0.7,
+  if (!siteEnv.indexable) return [];
+  const lastModified = new Date("2026-09-12");
+  return publicPaths().map((path) => ({
+    url: absoluteUrl(path),
+    lastModified,
+    changeFrequency: path === "/" ? "weekly" : "monthly",
+    priority: path === "/" ? 1 : services.some((s) => s.href === path) ? 0.8 : 0.6,
   }));
 }

@@ -13,7 +13,7 @@ export default function ErrorState({
   return (
     <section className="py-24">
       <Container className="max-w-2xl">
-        <p className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-copper">Error</p>
+        <p className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-copper-dark">Error</p>
         <h1 className="mt-4 font-display text-4xl tracking-[-0.02em]">
           This page could not be loaded.
         </h1>

@@ -1,14 +1,17 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/lib/site";
+import { siteEnv } from "@/lib/env";
 
 export default function robots(): MetadataRoute.Robots {
+  if (!siteEnv.indexable) {
+    // Preview / unconfirmed domain: pages also carry noindex meta + X-Robots-Tag.
+    return { rules: { userAgent: "*", disallow: "/" } };
+  }
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/account", "/api/"],
+      disallow: ["/api/", "/account", "/quote/"],
     },
-    sitemap: `${site.url}/sitemap.xml`,
-    host: site.url,
+    sitemap: `${siteEnv.baseUrl}/sitemap.xml`,
   };
 }

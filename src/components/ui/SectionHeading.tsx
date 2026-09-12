@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 export function Eyebrow({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <p className={cn("text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-copper", className)}>
+    <p className={cn("text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-copper-dark", className)}>
       {children}
     </p>
   );
@@ -23,7 +23,7 @@ export function SectionHeading({
 }) {
   return (
     <div className={cn("max-w-2xl", className)}>
-      {eyebrow ? <Eyebrow className={invert ? "text-copper" : undefined}>{eyebrow}</Eyebrow> : null}
+      {eyebrow ? <Eyebrow className={invert ? "text-copper-soft" : undefined}>{eyebrow}</Eyebrow> : null}
       <h2 className={cn("mt-3 text-3xl font-semibold tracking-[-0.03em] sm:text-4xl", invert ? "text-card" : "text-charcoal")}>
         {title}
       </h2>

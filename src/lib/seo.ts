@@ -1,27 +1,41 @@
 import type { Metadata } from "next";
+import { absoluteUrl, siteEnv } from "@/lib/env";
 import { site } from "@/lib/site";
 
 type BuildMeta = {
   title: string;
   description: string;
   path: string;
+  /** Force noindex regardless of environment (private or utility routes). */
+  noindex?: boolean;
+  type?: "website" | "article";
 };
 
-export function pageMetadata({ title, description, path }: BuildMeta): Metadata {
-  const url = `${site.url}${path}`;
-  const fullTitle = path === "/" ? `${site.name} — ${title}` : `${title} — ${site.name}`;
+/** Robots directive for the current environment. Preview builds are never indexable. */
+export function robotsFor(noindex = false): NonNullable<Metadata["robots"]> {
+  if (noindex || !siteEnv.indexable) {
+    return { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } };
+  }
+  return { index: true, follow: true };
+}
+
+export function pageMetadata({ title, description, path, noindex, type = "website" }: BuildMeta): Metadata {
+  const url = absoluteUrl(path);
+  const fullTitle = path === "/" ? title : `${title} | ${site.name}`;
 
   return {
-    title,
+    title: path === "/" ? { absolute: title } : title,
     description,
-    alternates: { canonical: url },
+    // Canonicals are only emitted once the production domain is confirmed.
+    alternates: siteEnv.indexable ? { canonical: url } : undefined,
+    robots: robotsFor(noindex),
     openGraph: {
       title: fullTitle,
       description,
       url,
       siteName: site.name,
       locale: "en_US",
-      type: "website",
+      type,
     },
     twitter: {
       card: "summary_large_image",
@@ -31,51 +45,74 @@ export function pageMetadata({ title, description, path }: BuildMeta): Metadata 
   };
 }
 
+/** Organization schema without unconfirmed contact data or opening hours. */
 export function organizationJsonLd() {
+  const sameAs = [site.social.instagram, site.social.linkedin, site.social.facebook].filter(Boolean);
   return {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": "Organization",
+    "@id": `${siteEnv.baseUrl}/#organization`,
     name: site.name,
-    slogan: site.tagline,
+    ...(site.legalName ? { legalName: site.legalName } : {}),
+    url: siteEnv.baseUrl,
+    logo: absoluteUrl("/icon"),
     description: site.description,
-    url: site.url,
-    email: site.email,
-    telephone: site.phoneDisplay,
-    areaServed: ["United States", "United Kingdom", "Australia"],
-    serviceType: [
-      "Embroidery digitizing",
-      "Vector tracing",
-      "Custom logo design",
-      "Custom embroidered patches",
-      "Embroidered apparel",
-      "Screen printing",
-      "Custom hats and caps",
-    ],
-    openingHours: "Mo-Fr 09:00-18:00",
+    address: { "@type": "PostalAddress", addressCountry: "PK" },
+    areaServed: ["US", "GB", "AU"],
+    ...(site.email ? { email: site.email } : {}),
+    ...(site.phone ? { telephone: site.phone.href } : {}),
+    ...(sameAs.length ? { sameAs } : {}),
   };
 }
 
-export function faqJsonLd() {
+export function serviceJsonLd(input: { name: string; description: string; path: string; serviceType: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: input.name,
+    serviceType: input.serviceType,
+    description: input.description,
+    url: absoluteUrl(input.path),
+    provider: { "@id": `${siteEnv.baseUrl}/#organization` },
+    areaServed: ["US", "GB", "AU"],
+  };
+}
+
+export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
+
+export function articleJsonLd(input: { headline: string; description: string; path: string; datePublished: string; dateModified?: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: input.headline,
+    description: input.description,
+    mainEntityOfPage: absoluteUrl(input.path),
+    datePublished: input.datePublished,
+    dateModified: input.dateModified ?? input.datePublished,
+    author: { "@id": `${siteEnv.baseUrl}/#organization` },
+    publisher: { "@id": `${siteEnv.baseUrl}/#organization` },
+  };
+}
+
+export function faqJsonLd(items: { q: string; a: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "What artwork should I send for embroidery digitizing?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Vector files are preferred. Include intended size, garment or patch type, and thread colors.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Which embroidery file formats do you deliver?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "DST, EMB, PES, EXP, and other shop formats on request.",
-        },
-      },
-    ],
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
   };
 }

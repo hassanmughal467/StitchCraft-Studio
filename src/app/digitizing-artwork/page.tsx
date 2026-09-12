@@ -1,44 +1,22 @@
-import Link from "next/link";
-import { CtaBand } from "@/components/sections/CtaBand";
-import { PageHero } from "@/components/sections/PageHero";
-import { ButtonLink } from "@/components/ui/Button";
-import { Container } from "@/components/ui/Container";
+import { RouteOverview } from "@/components/services/RouteOverview";
 import { pageMetadata } from "@/lib/seo";
-import { services } from "@/lib/services";
 
 export const metadata = pageMetadata({
-  title: "Digitizing & Artwork",
-  description: "Embroidery digitizing, vector tracing and custom logo design.",
+  title: "Digitizing & Artwork Services",
+  description: "Embroidery digitizing, vector tracing and custom logo design. Production-ready files delivered by download for shops, brands and teams.",
   path: "/digitizing-artwork",
 });
 
 export default function Page() {
   return (
-    <>
-      <PageHero
-        eyebrow="Route 1"
-        title="Digitizing & Artwork"
-        lede="Machine-ready embroidery files, production-ready vectors and original logo design."
-      >
-        <div className="mt-8">
-          <ButtonLink href="/quote?service=embroidery-digitizing">Request a Quote</ButtonLink>
-        </div>
-      </PageHero>
-      <section className="py-16">
-        <Container className="grid gap-4 md:grid-cols-3">
-          {services
-            .filter((item) => item.route === "digitizing")
-            .map((item) => (
-              <article key={item.id} className="border border-line bg-card p-6">
-                <h2 className="text-2xl font-semibold">
-                  <Link href={item.href}>{item.title}</Link>
-                </h2>
-                <p className="mt-3 text-sm leading-6 text-ink-soft">{item.outcome}</p>
-              </article>
-            ))}
-        </Container>
-      </section>
-      <CtaBand />
-    </>
+    <RouteOverview
+      route="digitizing"
+      lede="Send us a logo and tell us where it will be used. You receive a file: an embroidery file for your machine, clean vector artwork, or an original logo design."
+      points={[
+        "No minimum order: one file is a normal job.",
+        "Files delivered in the formats you name, with a preview for approval.",
+        "Production correction included if a file needs adjusting on your machine.",
+      ]}
+    />
   );
 }

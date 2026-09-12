@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Stitchcraft Studio — Artwork prepared. Products made.";
+export const alt = "Stitchcraft Studio: Embroidery digitizing, custom patches and branded apparel";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -23,9 +23,9 @@ export default function OpenGraphImage() {
           Stitchcraft Studio
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-          <div style={{ fontSize: 64, lineHeight: 1.05, fontWeight: 600 }}>Artwork prepared. Products made.</div>
-          <div style={{ fontSize: 26, color: "#E7E7E2", maxWidth: 780 }}>
-            Digitizing, vectors, patches, apparel and caps for shops, brands, teams and individual buyers.
+          <div style={{ fontSize: 60, lineHeight: 1.05, fontWeight: 600, maxWidth: 1000 }}>Embroidery Digitizing, Custom Patches &amp; Branded Apparel</div>
+          <div style={{ fontSize: 26, color: "#E7E7E2", maxWidth: 820 }}>
+            Production-ready artwork and finished caps, patches and apparel for print shops, brands, teams and individual orders.
           </div>
         </div>
       </div>
