@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { ClientBoard } from "@/components/portfolio/ClientBoard";
 import { StudioImage } from "@/components/media/StudioImage";
 import { Button } from "@/components/ui/Button";
 import { portfolioCategories, portfolioItems, type PortfolioCategory, type PortfolioItem } from "@/lib/portfolio";
@@ -10,10 +11,12 @@ export function PortfolioGallery() {
   const [filter, setFilter] = useState<PortfolioCategory>("All");
   const [active, setActive] = useState<PortfolioItem | null>(null);
 
-  const items = useMemo(
-    () => (filter === "All" ? portfolioItems : portfolioItems.filter((item) => item.category === filter)),
-    [filter],
-  );
+  const showClients = filter === "All" || filter === "Clients";
+  const items = useMemo(() => {
+    if (filter === "All") return portfolioItems;
+    if (filter === "Clients") return [];
+    return portfolioItems.filter((item) => item.category === filter);
+  }, [filter]);
 
   return (
     <div>
@@ -30,8 +33,8 @@ export function PortfolioGallery() {
               className={cn(
                 "min-h-10 border px-3 text-[0.72rem] uppercase tracking-[0.12em] transition-colors",
                 selected
-                  ? "border-ink bg-ink text-cream"
-                  : "border-line bg-transparent text-ink-soft hover:border-ink hover:text-ink",
+                  ? "border-blue bg-blue text-card"
+                  : "border-line bg-card text-ink-soft hover:border-charcoal hover:text-charcoal",
               )}
             >
               {category}
@@ -40,37 +43,53 @@ export function PortfolioGallery() {
         })}
       </div>
 
-      {items.length === 0 ? (
-        <p className="mt-12 border border-line bg-cream px-5 py-10 text-center text-sm text-stone">
-          No samples in this category yet. Choose another filter or request a quote for a similar placement.
-        </p>
-      ) : (
-        <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((item) => (
-            <li key={item.id}>
-              <button
-                type="button"
-                onClick={() => setActive(item)}
-                className="group block w-full text-left"
-              >
-                <StudioImage
-                  src={item.image.src}
-                  alt={item.image.alt}
-                  credit={item.image.credit}
-                  className="aspect-[4/3]"
-                  caption={item.category}
-                />
-                <p className="mt-4 font-display text-2xl tracking-[-0.02em] group-hover:text-copper">
-                  {item.title}
-                </p>
-                <p className="mt-1 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-stone">
-                  {item.placement}
-                </p>
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+      {showClients ? (
+        <div id="client-work" className="scroll-mt-28 mt-12">
+          <h2 className="text-3xl font-semibold tracking-[-0.03em]">Client work</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-soft">
+            Eight sew-out frames and six mark frames are waiting for approved client files. Replace the
+            empty slots in <code>src/lib/clients.ts</code>.
+          </p>
+          <div className="mt-8">
+            <ClientBoard />
+          </div>
+        </div>
+      ) : null}
+
+      {filter !== "Clients" ? (
+        <div className={cn(showClients && "mt-16")}>
+          {showClients ? (
+            <h2 className="text-3xl font-semibold tracking-[-0.03em]">Placement samples</h2>
+          ) : null}
+          {items.length === 0 ? (
+            <p className="mt-12 border border-line bg-warm px-5 py-10 text-center text-sm text-stone">
+              No samples in this category yet. Choose another filter or request a quote for a similar placement.
+            </p>
+          ) : (
+            <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {items.map((item, index) => (
+                <li key={item.id} className={cn(item.featured && index < 2 && "sm:col-span-1 lg:col-span-1")}>
+                  <button type="button" onClick={() => setActive(item)} className="group block w-full text-left">
+                    <StudioImage
+                      src={item.image.src}
+                      alt={item.image.alt}
+                      credit={item.image.credit}
+                      className={cn("aspect-[4/3]", item.featured && "lg:aspect-[5/4]")}
+                      caption={item.category}
+                    />
+                    <p className="mt-4 text-xl font-semibold transition-colors group-hover:text-blue">
+                      {item.title}
+                    </p>
+                    <p className="mt-1 text-sm text-stone">
+                      {item.placement}
+                    </p>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ) : null}
 
       {active ? <ProjectModal item={active} onClose={() => setActive(null)} /> : null}
     </div>
@@ -93,16 +112,13 @@ function ProjectModal({ item, onClose }: { item: PortfolioItem; onClose: () => v
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-ink/55 p-4 sm:items-center"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-charcoal/70 p-4 backdrop-blur-sm sm:items-center"
       role="dialog"
       aria-modal="true"
       aria-labelledby="project-title"
       onClick={onClose}
     >
-      <div
-        className="max-h-[90vh] w-full max-w-3xl overflow-y-auto bg-ivory"
-        onClick={(event) => event.stopPropagation()}
-      >
+      <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto bg-card" onClick={(event) => event.stopPropagation()}>
         <StudioImage
           src={item.image.src}
           alt={item.image.alt}
@@ -111,10 +127,10 @@ function ProjectModal({ item, onClose }: { item: PortfolioItem; onClose: () => v
           sizes="800px"
         />
         <div className="p-6 sm:p-8">
-          <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-copper">
+          <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-copper">
             {item.category} · {item.placement}
           </p>
-          <h2 id="project-title" className="mt-2 font-display text-3xl tracking-[-0.02em]">
+          <h2 id="project-title" className="mt-2 text-3xl font-semibold tracking-[-0.03em]">
             {item.title}
           </h2>
           <p className="mt-4 text-base leading-7 text-ink-soft">{item.notes}</p>
@@ -126,10 +142,10 @@ function ProjectModal({ item, onClose }: { item: PortfolioItem; onClose: () => v
               Close
             </Button>
             <a
-              href="/contact"
-              className="inline-flex min-h-12 items-center bg-copper px-6 text-[0.8rem] font-medium uppercase tracking-[0.08em] text-cream hover:bg-copper-dark"
+              href="/quote"
+              className="inline-flex min-h-12 items-center bg-blue px-6 text-[0.82rem] font-semibold tracking-[0.04em] text-card hover:bg-blue-dark"
             >
-              Request a similar file
+              Request a Quote
             </a>
           </div>
         </div>

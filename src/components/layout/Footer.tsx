@@ -1,82 +1,79 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
 import { Container } from "@/components/ui/Container";
-import { footerCompany, footerServices, legalNav } from "@/lib/nav";
-import { site, mailtoHref, telHref, whatsappHref } from "@/lib/site";
+import { footerCompany, footerHelp, footerServices, legalNav } from "@/lib/nav";
+import { mailtoHref, site, telHref, whatsappHref } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="bg-ink text-ivory">
-      <Container className="py-16 sm:py-20">
+    <footer className="bg-charcoal text-card">
+      <Container className="py-16">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <Logo invert />
-            <p className="mt-6 max-w-sm text-sm leading-6 text-ivory/68">
-              {site.tagline}. Clean stitch files and custom patches for brands,
-              teams, uniforms, and embroidery shops.
+            <p className="mt-5 max-w-sm text-sm leading-6 text-card/70">
+              {site.base}. Priority markets: {site.priorityMarkets.join(", ")}.
             </p>
-            <dl className="mt-8 space-y-2 text-sm text-ivory/80">
-              <div>
-                <dt className="sr-only">Email</dt>
-                <dd>
-                  <a className="hover:text-ivory" href={mailtoHref()}>
-                    {site.email}
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="sr-only">Phone</dt>
-                <dd>
-                  <a className="hover:text-ivory" href={telHref()}>
-                    {site.phoneDisplay}
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="sr-only">Hours</dt>
-                <dd>{site.hours}</dd>
-              </div>
+            <dl className="mt-6 space-y-2 text-sm text-card/80">
+              <dd>
+                <a href={mailtoHref()}>{site.email}</a>
+              </dd>
+              <dd>
+                <a href={telHref()}>{site.phoneDisplay}</a>
+              </dd>
+              <dd>{site.hours}</dd>
             </dl>
           </div>
-
-          <div className="grid gap-10 sm:grid-cols-3 lg:col-span-8">
-            <FooterList title="Services" items={footerServices} />
-            <FooterList title="Studio" items={footerCompany} />
+          <div className="grid gap-8 sm:grid-cols-3 lg:col-span-8">
+            <List title="Services" items={footerServices} />
+            <List title="Help" items={footerHelp} />
             <div>
-              <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-ivory/45">
-                Connect
-              </p>
-              <ul className="mt-4 space-y-2 text-sm text-ivory/78">
+              <List title="Studio" items={footerCompany} />
+              <p className="mt-6 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-card/45">Connect</p>
+              <ul className="mt-3 space-y-2 text-sm text-card/75">
                 <li>
                   <a href={whatsappHref()} target="_blank" rel="noreferrer">
                     WhatsApp
                   </a>
                 </li>
                 <li>
-                  <a href={site.social.instagram} target="_blank" rel="noreferrer">
-                    Instagram
-                  </a>
+                  <a href={site.social.instagram}>Instagram</a>
                 </li>
                 <li>
-                  <a href={site.social.linkedin} target="_blank" rel="noreferrer">
-                    LinkedIn
-                  </a>
+                  <a href={site.social.linkedin}>LinkedIn</a>
                 </li>
                 <li>
-                  <a href={site.social.facebook} target="_blank" rel="noreferrer">
-                    Facebook
-                  </a>
+                  <a href={site.social.facebook}>Facebook</a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
-
-        <div className="mt-14 flex flex-col gap-4 border-t border-ivory/12 pt-6 text-xs text-ivory/45 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
-          <div className="flex gap-5">
+        <form className="mt-12 max-w-md border-t border-card/10 pt-8" action="/contact" method="get">
+          <p className="text-sm text-card/70">
+            Newsletter sign-up is optional. We only email if you consent. No artwork is sent to this list.
+          </p>
+          <label htmlFor="newsletter-email" className="mt-3 block text-sm">
+            Email for updates
+          </label>
+          <div className="mt-2 flex gap-2">
+            <input
+              id="newsletter-email"
+              name="email"
+              type="email"
+              className="min-h-11 flex-1 border border-card/20 bg-charcoal px-3 text-sm"
+              placeholder="you@company.com"
+            />
+            <Link href="/contact" className="inline-flex min-h-11 items-center bg-card px-4 text-sm font-semibold text-charcoal">
+              Contact
+            </Link>
+          </div>
+        </form>
+        <div className="mt-10 flex flex-col gap-4 border-t border-card/10 pt-6 text-xs text-card/45 sm:flex-row sm:justify-between">
+          <p>© {site.copyrightYear} {site.name}. {site.address.country}.</p>
+          <div className="flex flex-wrap gap-4">
             {legalNav.map((item) => (
-              <Link key={item.href} href={item.href} className="hover:text-ivory">
+              <Link key={item.href} href={item.href} className="hover:text-card">
                 {item.label}
               </Link>
             ))}
@@ -87,22 +84,14 @@ export function Footer() {
   );
 }
 
-function FooterList({
-  title,
-  items,
-}: {
-  title: string;
-  items: { href: string; label: string }[];
-}) {
+function List({ title, items }: { title: string; items: { href: string; label: string }[] }) {
   return (
     <div>
-      <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-ivory/45">
-        {title}
-      </p>
-      <ul className="mt-4 space-y-2 text-sm text-ivory/78">
+      <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-card/45">{title}</p>
+      <ul className="mt-3 space-y-2 text-sm text-card/75">
         {items.map((item) => (
-          <li key={item.href + item.label}>
-            <Link href={item.href} className="hover:text-ivory">
+          <li key={item.href}>
+            <Link href={item.href} className="hover:text-card">
               {item.label}
             </Link>
           </li>

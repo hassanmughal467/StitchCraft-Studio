@@ -1,36 +1,38 @@
 /**
- * Central brand and contact configuration.
- *
- * REPLACE BEFORE LAUNCH:
- * - logo: src/components/brand/Logo.tsx (current mark is a temporary wordmark)
- * - phone, email, WhatsApp, address
- * - NEXT_PUBLIC_SITE_URL / canonical domain
- * - social profile URLs
- * - portfolio photographs in src/lib/portfolio.ts (marked PLACEHOLDER)
- * - hero and section photographs in src/lib/media.ts (marked PLACEHOLDER)
+ * Configurable studio identity.
+ * Pending owner values are marked PENDING — do not invent production data.
  */
 export const site = {
-  name: "StitchCraft Studio",
-  shortName: "StitchCraft",
-  tagline: "Threadline Digitizing",
+  name: "Stitchcraft Studio",
+  shortName: "Stitchcraft",
+  copyrightYear: 2026,
+  legalName: "Legal business name pending", // PENDING
+  tagline: "Artwork prepared. Products made. Orders delivered with care.",
   description:
-    "Professional embroidery digitizing and custom patches for clothing brands, uniforms, sports teams, and merchandise businesses.",
+    "Embroidery digitizing, vector artwork, custom patches, branded apparel and caps for print shops, brands, teams and individual buyers.",
+  base: "Pakistan-based studio serving international customers",
+  priorityMarkets: ["United States", "United Kingdom", "Australia"],
+  laterMarkets: ["Canada", "New Zealand"],
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.stitchcraftstudio.com",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "quotes@example.com",
   phoneDisplay: process.env.NEXT_PUBLIC_PHONE ?? "+1 555 014 8820",
   phoneHref: (process.env.NEXT_PUBLIC_PHONE ?? "+15550148820").replace(/\s+/g, ""),
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "15550148820",
   address: {
-    // REPLACE: legal / studio address
-    line1: "Studio address to be confirmed",
-    locality: "Available worldwide",
-    country: "International production support",
+    line1: "Studio address to be confirmed", // PENDING
+    locality: "Pakistan",
+    country: "Serves customers internationally — no overseas offices claimed",
   },
-  hours: "Monday–Friday, 9:00–18:00 (GMT)",
+  hours: "Support hours by country pending — weekday coverage listed as GMT until confirmed",
+  hoursByCountry: {
+    US: "Pending",
+    UK: "Pending",
+    AU: "Pending",
+  },
   social: {
-    instagram: "https://instagram.com/", // REPLACE
-    linkedin: "https://www.linkedin.com/", // REPLACE
-    facebook: "https://www.facebook.com/", // REPLACE
+    instagram: "https://instagram.com/", // PENDING
+    linkedin: "https://www.linkedin.com/", // PENDING
+    facebook: "https://www.facebook.com/", // PENDING
   },
 } as const;
 
@@ -49,15 +51,16 @@ export const fileUpload = {
     ".emb",
     ".pes",
     ".exp",
+    ".jef",
     ".ofm",
     ".pxf",
   ],
-  acceptLabel: "AI, EPS, PDF, SVG, PNG, JPG, DST, EMB, PES, EXP (max 15 MB)",
+  acceptLabel: "AI, EPS, PDF, SVG, PNG, JPG, DST, EMB, PES, EXP, JEF (max 15 MB)",
 } as const;
 
 export function whatsappHref(message?: string) {
   const text = encodeURIComponent(
-    message ?? "Hello StitchCraft Studio — I would like a quote for embroidery digitizing or custom patches.",
+    message ?? "Hello Stitchcraft Studio — I would like a quote.",
   );
   return `https://wa.me/${site.whatsapp}?text=${text}`;
 }

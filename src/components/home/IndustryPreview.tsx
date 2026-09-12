@@ -15,13 +15,13 @@ export function IndustryPreview() {
               The same mark, adapted to how it will be worn.
             </h2>
           </div>
-          <Link href="/industries" className="text-sm text-ink underline-offset-4 hover:underline">
+          <Link href="/industries" className="text-sm text-copper hover:text-copper-dark">
             See all industries
           </Link>
         </div>
         <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {industries.map((industry) => (
-            <li key={industry.title} className="border border-line bg-cream p-6">
+            <li key={industry.title} className="border border-line bg-cream/80 p-6 transition-colors hover:border-copper/45">
               <h3 className="font-display text-xl tracking-[-0.02em]">{industry.title}</h3>
               <p className="mt-3 text-sm leading-6 text-ink-soft">{industry.body}</p>
             </li>

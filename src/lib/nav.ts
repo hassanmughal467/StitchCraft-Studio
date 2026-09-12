@@ -3,40 +3,76 @@ export type NavItem = {
   label: string;
 };
 
-export const primaryNav: NavItem[] = [
-  { href: "/services", label: "Services" },
-  { href: "/embroidery-digitizing", label: "Digitizing" },
-  { href: "/custom-patches", label: "Patches" },
-  { href: "/portfolio", label: "Work" },
-  { href: "/how-it-works", label: "Process" },
-  { href: "/industries", label: "Industries" },
-  { href: "/about", label: "About" },
-  { href: "/faq", label: "FAQ" },
+export type NavGroup = {
+  href: string;
+  label: string;
+  children: NavItem[];
+};
+
+export const digitizingNav: NavGroup = {
+  href: "/digitizing-artwork",
+  label: "Digitizing & Artwork",
+  children: [
+    { href: "/embroidery-digitizing", label: "Embroidery Digitizing" },
+    { href: "/vector-tracing", label: "Vector Tracing" },
+    { href: "/custom-logo-design", label: "Custom Logo Design" },
+  ],
+};
+
+export const productsNav: NavGroup = {
+  href: "/custom-products",
+  label: "Custom Products",
+  children: [
+    { href: "/custom-patches", label: "Custom Patches" },
+    { href: "/embroidered-apparel", label: "Embroidered Apparel" },
+    { href: "/screen-printing", label: "Screen Printing" },
+    { href: "/custom-hats", label: "Custom Hats & Caps" },
+  ],
+};
+
+export const studioNav: NavGroup = {
+  href: "/about",
+  label: "Studio",
+  children: [
+    { href: "/how-it-works", label: "How It Works" },
+    { href: "/about", label: "About" },
+    { href: "/resources", label: "Resources" },
+  ],
+};
+
+export const primaryLinks: NavItem[] = [
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/trade", label: "For Trade" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export const footerServices: NavItem[] = [
-  { href: "/embroidery-digitizing", label: "Embroidery digitizing" },
-  { href: "/custom-patches", label: "Custom embroidered patches" },
-  { href: "/services#logo-digitizing", label: "Logo digitizing" },
-  { href: "/services#jacket-back", label: "Jacket-back patches" },
-  { href: "/services#caps", label: "Hat and cap files" },
-  { href: "/services#applique", label: "Appliqué digitizing" },
-  { href: "/services#puff", label: "3D puff embroidery" },
-  { href: "/services#chenille", label: "Chenille and woven patches" },
-  { href: "/services#vector", label: "Vector artwork preparation" },
-  { href: "/services#bulk", label: "Bulk order support" },
+  ...digitizingNav.children,
+  ...productsNav.children,
+];
+
+export const footerHelp: NavItem[] = [
+  { href: "/how-it-works", label: "How it works" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/shipping", label: "Shipping & delivery" },
+  { href: "/artwork-guidelines", label: "Artwork guidelines" },
+  { href: "/file-formats", label: "File format guide" },
+  { href: "/account", label: "Account" },
+  { href: "/quote", label: "Request a quote" },
 ];
 
 export const footerCompany: NavItem[] = [
-  { href: "/about", label: "About the studio" },
-  { href: "/how-it-works", label: "How it works" },
-  { href: "/industries", label: "Industries we serve" },
+  { href: "/about", label: "About" },
+  { href: "/trade", label: "For trade / B2B" },
   { href: "/portfolio", label: "Portfolio" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Request a quote" },
+  { href: "/resources", label: "Resources" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export const legalNav: NavItem[] = [
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
+  { href: "/refund-policy", label: "Refund & remake" },
+  { href: "/cookies", label: "Cookies" },
+  { href: "/accessibility", label: "Accessibility" },
 ];

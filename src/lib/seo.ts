@@ -41,12 +41,15 @@ export function organizationJsonLd() {
     url: site.url,
     email: site.email,
     telephone: site.phoneDisplay,
-    areaServed: "Worldwide",
+    areaServed: ["United States", "United Kingdom", "Australia"],
     serviceType: [
       "Embroidery digitizing",
+      "Vector tracing",
+      "Custom logo design",
       "Custom embroidered patches",
-      "Logo digitizing",
-      "3D puff embroidery",
+      "Embroidered apparel",
+      "Screen printing",
+      "Custom hats and caps",
     ],
     openingHours: "Mo-Fr 09:00-18:00",
   };

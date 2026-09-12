@@ -5,6 +5,7 @@
 
 export const portfolioCategories = [
   "All",
+  "Clients",
   "Logos",
   "Caps",
   "Jackets",
@@ -21,9 +22,10 @@ export type PortfolioCategory = (typeof portfolioCategories)[number];
 export type PortfolioItem = {
   id: string;
   title: string;
-  category: Exclude<PortfolioCategory, "All">;
+  category: Exclude<PortfolioCategory, "All" | "Clients">;
   placement: string;
   notes: string;
+  featured?: boolean;
   image: {
     src: string;
     alt: string;
@@ -37,6 +39,7 @@ export const portfolioItems: PortfolioItem[] = [
     id: "left-chest-mark",
     title: "Left-chest brand mark",
     category: "Logos",
+    featured: true,
     placement: "Polo / light twill",
     notes:
       "Small logo work where letter spacing and open counters have to stay readable at typical chest size. Fine serifs are converted to stitches that will hold after wash.",
@@ -51,6 +54,7 @@ export const portfolioItems: PortfolioItem[] = [
     id: "structured-cap-front",
     title: "Structured cap front",
     category: "Caps",
+    featured: true,
     placement: "Mid-profile snapback",
     notes:
       "Cap files planned for a curved sewing field. Column widths and underlay are set so the design does not sink into the buckram or walk on the seam.",

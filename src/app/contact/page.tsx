@@ -5,60 +5,44 @@ import { pageMetadata } from "@/lib/seo";
 import { mailtoHref, site, telHref, whatsappHref } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Request a Quote",
-  description:
-    "Request a quote for embroidery digitizing or custom patches. Upload artwork and tell us the garment, quantity, and deadline.",
+  title: "Contact",
+  description: "Contact Stitchcraft Studio or request a quote.",
   path: "/contact",
 });
 
-export default function ContactPage() {
+export default function Page() {
   return (
     <>
       <PageHero
         eyebrow="Contact"
-        title="Request a quote. Include the artwork if you have it."
-        lede="Use the form, email, or WhatsApp. The more specific the size, garment, and date, the faster we can reply with a usable quote."
+        title="Email, WhatsApp, or the quote form."
+        lede="Phone, email and hours are placeholders until the owner confirms them. We do not list offices that do not exist."
       />
-      <section className="py-16 sm:py-20">
+      <section className="py-16">
         <Container className="grid gap-12 lg:grid-cols-12">
           <aside className="lg:col-span-4">
-            <h2 className="font-display text-3xl tracking-[-0.02em]">Studio contact</h2>
-            <ul className="mt-6 space-y-4 text-sm leading-6 text-ink-soft">
+            <h2 className="text-2xl font-semibold">Studio</h2>
+            <ul className="mt-5 space-y-4 text-sm leading-6 text-ink-soft">
               <li>
-                <span className="block font-mono text-[0.62rem] uppercase tracking-[0.16em] text-stone">
-                  Email
-                </span>
-                <a href={mailtoHref()} className="text-ink hover:text-copper">
+                <a href={mailtoHref()} className="text-blue">
                   {site.email}
                 </a>
               </li>
               <li>
-                <span className="block font-mono text-[0.62rem] uppercase tracking-[0.16em] text-stone">
-                  Phone
-                </span>
-                <a href={telHref()} className="text-ink hover:text-copper">
-                  {site.phoneDisplay}
-                </a>
+                <a href={telHref()}>{site.phoneDisplay}</a>
               </li>
               <li>
-                <span className="block font-mono text-[0.62rem] uppercase tracking-[0.16em] text-stone">
+                <a href={whatsappHref()} target="_blank" rel="noreferrer">
                   WhatsApp
-                </span>
-                <a href={whatsappHref()} target="_blank" rel="noreferrer" className="text-ink hover:text-copper">
-                  Message the studio
                 </a>
               </li>
+              <li>{site.hours}</li>
               <li>
-                <span className="block font-mono text-[0.62rem] uppercase tracking-[0.16em] text-stone">
-                  Hours
-                </span>
-                {site.hours}
+                {site.address.line1}
+                <br />
+                {site.address.country}
               </li>
             </ul>
-            <p className="mt-8 text-xs leading-5 text-stone">
-              Phone, email, WhatsApp, and social links are placeholders until launch details are confirmed.
-              The form works in mock mode until Formspree or Resend credentials are added.
-            </p>
           </aside>
           <div className="border border-line lg:col-span-8">
             <QuoteForm />

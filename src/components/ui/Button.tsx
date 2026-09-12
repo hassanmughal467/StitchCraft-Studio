@@ -2,15 +2,11 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const variants = {
-  primary:
-    "bg-copper text-cream hover:bg-copper-dark focus-visible:outline-copper",
-  secondary:
-    "border border-ink/20 bg-transparent text-ink hover:border-ink hover:bg-ink hover:text-cream",
-  ghost: "text-ink underline-offset-4 hover:underline",
-  invert:
-    "bg-ivory text-ink hover:bg-cream focus-visible:outline-ivory",
-  invertGhost:
-    "border border-ivory/30 text-ivory hover:border-ivory hover:bg-ivory/5",
+  primary: "bg-blue text-card hover:bg-blue-dark",
+  secondary: "border border-charcoal/15 bg-card text-charcoal hover:bg-charcoal hover:text-card",
+  ghost: "text-blue underline-offset-4 hover:underline",
+  invert: "bg-card text-charcoal hover:bg-warm",
+  invertGhost: "border border-card/40 text-card hover:bg-card/10",
 };
 
 type Common = {
@@ -19,6 +15,9 @@ type Common = {
   variant?: keyof typeof variants;
 };
 
+const base =
+  "inline-flex min-h-12 items-center justify-center rounded-sm px-6 text-[0.82rem] font-semibold tracking-[0.04em] transition-colors duration-200";
+
 export function ButtonLink({
   href,
   children,
@@ -26,12 +25,7 @@ export function ButtonLink({
   variant = "primary",
   external,
 }: Common & { href: string; external?: boolean }) {
-  const classes = cn(
-    "inline-flex min-h-12 items-center justify-center px-6 text-[0.8rem] font-medium tracking-[0.08em] uppercase transition-colors duration-200",
-    variants[variant],
-    className,
-  );
-
+  const classes = cn(base, variants[variant], className);
   if (external) {
     return (
       <a href={href} className={classes} target="_blank" rel="noreferrer">
@@ -39,7 +33,6 @@ export function ButtonLink({
       </a>
     );
   }
-
   return (
     <Link href={href} className={classes}>
       {children}
@@ -59,11 +52,7 @@ export function Button({
     <button
       type={type}
       disabled={disabled}
-      className={cn(
-        "inline-flex min-h-12 items-center justify-center px-6 text-[0.8rem] font-medium tracking-[0.08em] uppercase transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50",
-        variants[variant],
-        className,
-      )}
+      className={cn(base, variants[variant], "disabled:cursor-not-allowed disabled:opacity-50", className)}
       {...props}
     >
       {children}
