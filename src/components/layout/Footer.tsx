@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
 import { Container } from "@/components/ui/Container";
+import { ContactChannels } from "@/components/contact/ContactChannels";
 import { footerCompany, footerHelp, footerServices, legalNav } from "@/lib/nav";
-import { contactChannels, mailtoHref, site, socialLinks, telHref, whatsappHref } from "@/lib/site";
+import { site, socialLinks } from "@/lib/site";
 
 export function Footer() {
-  const email = mailtoHref();
-  const tel = telHref();
-  const wa = whatsappHref("Hello Stitchcraft Studio, I have a question.");
   const addressParts = [site.address.line1, site.address.city, site.address.country].filter(Boolean);
 
   return (
@@ -17,32 +15,9 @@ export function Footer() {
           <div className="lg:col-span-4">
             <Logo invert />
             <p className="mt-5 max-w-sm text-sm leading-6 text-card/70">{site.location}</p>
-            {contactChannels.hasAny || site.hours ? (
-              <ul className="mt-6 space-y-2 text-sm text-card/80">
-                {email && site.email ? (
-                  <li>
-                    <a href={email} className="hover:text-card">
-                      {site.email}
-                    </a>
-                  </li>
-                ) : null}
-                {tel && site.phone ? (
-                  <li>
-                    <a href={tel} className="hover:text-card">
-                      {site.phone.display}
-                    </a>
-                  </li>
-                ) : null}
-                {wa ? (
-                  <li>
-                    <a href={wa} target="_blank" rel="noreferrer" className="hover:text-card">
-                      WhatsApp
-                    </a>
-                  </li>
-                ) : null}
-                {site.hours ? <li className="text-card/60">{String(site.hours)}</li> : null}
-              </ul>
-            ) : null}
+            <div className="mt-6 max-w-sm">
+              <ContactChannels compact invert message="Hello Stitchcraft Studio, I have a question." />
+            </div>
             <p className="mt-4 text-sm text-card/60">{addressParts.join(", ")}</p>
             {socialLinks.length ? (
               <ul className="mt-5 flex flex-wrap gap-4 text-sm text-card/75">

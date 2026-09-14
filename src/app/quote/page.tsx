@@ -1,34 +1,42 @@
 import Link from "next/link";
-import { QuoteForm } from "@/components/quote/QuoteForm";
+import { ContactChannels } from "@/components/contact/ContactChannels";
+import { QuoteIntake } from "@/components/quote/QuoteIntake";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
-import { quoteServiceIds } from "@/lib/quote";
-import { isQuoteIntakeAvailable } from "@/lib/server/quote-intake";
+import { getPortfolioItem } from "@/lib/portfolio";
+import { resolveCustomerParam, resolveServiceParam } from "@/lib/quote";
+import { getIntakeStatus } from "@/lib/server/intake-config";
 import { pageMetadata } from "@/lib/seo";
 import { getService } from "@/lib/services";
+import { contactChannels } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Request a Quote",
+  title: "Request a quote",
   description: "Request a quote for embroidery digitizing, vector tracing, logo design, custom patches, embroidered apparel, screen printing or caps.",
   path: "/quote",
+  // Transactional page: excluded from the sitemap and robots, never indexed.
+  noindex: true,
 });
 
-export default async function Page({ searchParams }: { searchParams: Promise<{ service?: string; customer?: string }> }) {
+export default async function Page({ searchParams }: { searchParams: Promise<{ service?: string; customer?: string; project?: string }> }) {
   const params = await searchParams;
-  const initialService = quoteServiceIds.includes(params.service ?? "") ? (params.service as string) : "";
-  const initialCustomerType = params.customer === "individual" ? "Individual" : "Business";
+  const initialService = resolveServiceParam(params.service);
+  const initialCustomerType = resolveCustomerParam(params.customer);
   const service = initialService ? getService(initialService) : undefined;
-  const intake = isQuoteIntakeAvailable();
+  const project = params.project ? getPortfolioItem(params.project) : undefined;
+  const status = getIntakeStatus();
 
   return (
     <>
       <PageHero
         eyebrow="Request a quote"
-        title={service ? `Quote for ${service.title}` : "Tell us about your job"}
+        title={service ? `Quote for ${service.title.toLowerCase()}` : "Tell us about your job"}
         lede={
-          service
-            ? `${service.kind === "digital" ? "You will receive files by download." : "You will receive finished products, shipped with tracking."} Two short steps; upload artwork if you have it.`
-            : "Two short steps: who you are and which service, then only the details that service needs. Upload artwork if you have it."
+          !status.online
+            ? "Online quote requests are paused. The contact details below still reach the studio."
+            : service
+              ? `${service.kind === "digital" ? "You receive files by download." : "You receive finished products, shipped with tracking."} Two short steps; attach artwork if you have it.`
+              : "Two short steps: who you are and which service, then only the details that service needs. Attach artwork if you have it."
         }
         compact
         dark={false}
@@ -37,18 +45,19 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
         <Container className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <div className="rounded-sm border border-line">
-              <QuoteForm initialService={initialService} initialCustomerType={initialCustomerType} available={intake.available} />
+              <QuoteIntake initialService={initialService} initialCustomerType={initialCustomerType} initialPortfolio={project ? { ref: project.slug, title: project.title } : null} serviceTitle={service?.title} />
             </div>
           </div>
-          <aside className="lg:col-span-4">
+          <aside className="space-y-6 lg:col-span-4">
             <div className="rounded-sm border border-line bg-card p-6 text-sm leading-6 text-ink-soft">
               <h2 className="text-base font-semibold text-charcoal">What happens next</h2>
               <ol className="mt-3 list-decimal space-y-2 pl-5">
-                <li>You receive a reference number immediately.</li>
+                {status.online ? <li>You receive a reference number as soon as the request is saved.</li> : <li>We log your request and reply with a reference.</li>}
                 <li>We review the details and ask for anything missing.</li>
-                <li>You get an itemized quote with timing and payment terms.</li>
-                <li>Work starts after you approve the quote and proof.</li>
+                <li>You get an itemised quotation with timing and payment terms.</li>
+                <li>Work starts after you approve the quotation and the proof.</li>
               </ol>
+              {status.responseStatement ? <p className="mt-4">{status.responseStatement}</p> : null}
               {service ? (
                 <p className="mt-5">
                   Not sure what to send? See{" "}
@@ -67,6 +76,14 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
                 </p>
               )}
             </div>
+            {contactChannels.hasAny && status.online ? (
+              <div className="rounded-sm border border-line bg-card p-6">
+                <h2 className="text-base font-semibold text-charcoal">Prefer to talk first?</h2>
+                <div className="mt-3">
+                  <ContactChannels compact message={`Hello Stitchcraft Studio, I have a question before requesting a quote${service ? ` for ${service.title.toLowerCase()}` : ""}.`} />
+                </div>
+              </div>
+            ) : null}
           </aside>
         </Container>
       </section>

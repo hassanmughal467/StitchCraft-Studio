@@ -1,3 +1,4 @@
+import { fileLimits } from "@/lib/config/limits";
 import { siteEnv } from "@/lib/env";
 
 /**
@@ -67,7 +68,13 @@ export const site = {
   email: validEmail(process.env.NEXT_PUBLIC_CONTACT_EMAIL),
   phone,
   whatsapp: validWhatsApp(process.env.NEXT_PUBLIC_WHATSAPP),
+  /** Customer-service availability, e.g. "Monday to Saturday, 09:00–18:00 PKT". Hidden when unset. */
   hours: clean(process.env.NEXT_PUBLIC_SUPPORT_HOURS),
+  /**
+   * Response-time statement shown on Contact and in confirmations, e.g.
+   * "We usually reply within one business day." Hidden when unset; never invented.
+   */
+  responseStatement: clean(process.env.NEXT_PUBLIC_RESPONSE_STATEMENT),
   address: {
     line1: clean(process.env.NEXT_PUBLIC_ADDRESS_LINE1),
     city: clean(process.env.NEXT_PUBLIC_ADDRESS_CITY),
@@ -95,32 +102,24 @@ export const socialLinks: Array<[label: string, href: string]> = (
   ] as Array<[string, string | null]>
 ).filter((entry): entry is [string, string] => Boolean(entry[1]));
 
+/** Upload limits live in one place; re-exported here for existing imports. */
 export const fileUpload = {
-  maxSizeMb: 15,
-  accept: [
-    ".ai",
-    ".eps",
-    ".pdf",
-    ".svg",
-    ".png",
-    ".jpg",
-    ".jpeg",
-    ".webp",
-    ".dst",
-    ".emb",
-    ".pes",
-    ".exp",
-    ".jef",
-    ".ofm",
-    ".pxf",
-  ],
-  acceptLabel: "AI, EPS, PDF, SVG, PNG, JPG, WEBP, DST, EMB, PES, EXP, JEF, OFM, PXF (max 15 MB)",
+  maxSizeMb: fileLimits.maxSizeMb,
+  maxFiles: fileLimits.maxFiles,
+  accept: fileLimits.accept,
+  acceptLabel: fileLimits.acceptLabel,
 } as const;
 
+/** WhatsApp deep link with the international number (digits only, no leading +). */
 export function whatsappHref(message?: string) {
   if (!site.whatsapp) return null;
   const text = encodeURIComponent(message ?? "Hello Stitchcraft Studio, I would like a quote.");
   return `https://wa.me/${site.whatsapp}?text=${text}`;
+}
+
+/** Human-readable WhatsApp number for display, e.g. "+92 300 1234567" → "+923001234567". */
+export function whatsappDisplay() {
+  return site.whatsapp ? `+${site.whatsapp}` : null;
 }
 
 export function mailtoHref() {
