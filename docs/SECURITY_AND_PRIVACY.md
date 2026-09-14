@@ -1,26 +1,26 @@
 # Security and privacy
 
-## In place now
+## In place
 
 - No secrets in the repository; credentials use environment variables
-- Quote uploads validated for type and size in the browser and API
-- Form consent checkbox for quote handling
-- Draft privacy, terms, cookies, and refund pages
-- Public pages only; account and future checkout must be `noindex`
+- Client and server validation; file signature + extension + size checks
+- Private quote storage (`file` / `memory` / `vercel-blob`); public URLs are not used for artwork
+- HMAC-signed, expiring staff artwork links when `QUOTE_ARTWORK_LINK_SECRET` is set
+- Same-origin POST check; honeypot; in-memory rate limit (6 / 10 min)
+- Optional Cloudflare Turnstile (off by default)
+- Structured logs with IP hashing; no artwork, email, phone or address in analytics
+- Security headers: CSP, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy`; HSTS when production is confirmed
+- Consent checkbox; draft privacy, terms, cookies, refund, shipping, accessibility pages
 
-## Required before live file handling
+## Still required before treating the site as a production intake host
 
-- Private object storage with randomized keys
-- Signed or session-checked downloads
+- Durable store + Blob token + Resend on Vercel (see `docs/LAUNCH_CHECKLIST.md`)
 - Malware scanning on upload
-- CSRF on mutating routes (Next.js Server Actions / token)
-- Rate limiting and spam protection on `/api/quote`
-- Accessible CAPTCHA only if abuse requires it
-- Role-based staff access; designers do not see unrelated payment data
-- Audit log for proof approval, quote edits, payment state, staff access
-- Configurable retention and inactive-account deletion
-- Automated backups and a documented restore test
+- Role-based staff UI (inbox + stored records is the current path)
+- Configurable retention and deletion process (owner confirmation)
+- Automated backups and a restore test
+- Re-run `npm audit` before launch
 
 ## Analytics rule
 
-Track funnel events without sending artwork, names, emails, or extra personal data. Preserve UTM on the quote record. Consent-aware configuration only.
+Funnel events only. Never send names, emails, phones, addresses, artwork filenames/URLs, project descriptions, client names or previous-order references.

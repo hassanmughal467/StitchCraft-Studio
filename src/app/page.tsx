@@ -8,7 +8,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow, SectionHeading } from "@/components/ui/SectionHeading";
 import { ArtworkToStitch, HeroComposition } from "@/components/visuals/HeroComposition";
-import { hasPublishedPortfolio } from "@/lib/portfolio";
+import { featuredPortfolio, hasPublishedPortfolio } from "@/lib/portfolio";
 import { faqJsonLd, pageMetadata } from "@/lib/seo";
 import { buyingAnswers, guides, routes, services, tradeBenefits } from "@/lib/services";
 import { site } from "@/lib/site";
@@ -68,10 +68,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* 2. Selected work: rendered only when approved projects exist */}
-      {showWork ? <PortfolioPreview /> : null}
-
-      {/* 3. Two entry points */}
+      {/* 2. Two entry points */}
       <section className="border-b border-line bg-card py-16 sm:py-20">
         <Container>
           <SectionHeading eyebrow="Start here" title="Do you need files, or finished products?" lede="Both routes start with the same quote form. Choosing the right one tells us which details to ask for." />
@@ -104,7 +101,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* 4. Seven services */}
+      {/* 3. Seven services */}
       <section className="border-b border-line py-16 sm:py-20">
         <Container>
           <SectionHeading eyebrow="Services" title="Seven services, one quote form" lede="Each service page explains what to send, what you receive, what affects the price and how revisions work." />
@@ -115,6 +112,9 @@ export default function HomePage() {
           </ul>
         </Container>
       </section>
+
+      {/* 4. Featured work: only when approved, featured projects exist */}
+      {featuredPortfolio().length ? <PortfolioPreview featured /> : null}
 
       {/* 5. Artwork to finished product */}
       <section className="border-b border-line bg-card py-16 sm:py-20">

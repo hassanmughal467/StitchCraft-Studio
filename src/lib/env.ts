@@ -50,3 +50,13 @@ export const siteEnv = {
 export function absoluteUrl(path = "/") {
   return new URL(path, siteEnv.baseUrl).toString();
 }
+
+/**
+ * Public, shareable URL. Uses the confirmed production origin only.
+ * Preview hostnames (*.vercel.app) are never returned — callers must omit
+ * canonical, Open Graph and schema URLs when this is undefined.
+ */
+export function publicAbsoluteUrl(path = "/"): string | undefined {
+  if (!siteEnv.productionUrl) return undefined;
+  return new URL(path, siteEnv.productionUrl).toString();
+}

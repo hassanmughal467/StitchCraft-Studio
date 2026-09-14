@@ -24,8 +24,8 @@ export default function Page() {
         title="Talk to the studio"
         lede={
           contactChannels.hasAny
-            ? "Email or message us with a question, or send a quote request with the details we need to reply with a price. Both routes reach the same people."
-            : "For pricing, use the quote request form: it collects the details we need to reply with a price. Add any other questions to the project description and we will answer them in the same reply."
+            ? "Email or message us with a question. You can also send a quote request when you already know the service and details."
+            : "Send a quote request with the details we need to reply with a price, or add questions to the project description and we will answer them in the same reply."
         }
       />
       <section className="py-14 sm:py-16">

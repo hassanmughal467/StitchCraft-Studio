@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
+import { AnnouncementBanner } from "@/components/layout/AnnouncementBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
@@ -17,7 +18,7 @@ const sans = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteEnv.baseUrl),
+  ...(siteEnv.productionUrl ? { metadataBase: new URL(siteEnv.productionUrl) } : {}),
   title: {
     default: `Embroidery Digitizing & Custom Patches | ${site.name}`,
     template: `%s | ${site.name}`,
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
+        <AnnouncementBanner />
         <Header />
         <main id="main">{children}</main>
         <Footer />

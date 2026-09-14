@@ -27,6 +27,9 @@ describe("indexing by environment", () => {
     expect(preview.sitemap).toEqual([]);
     const meta = preview.seo.pageMetadata({ title: "Test", description: "d", path: "/custom-patches" });
     expect(meta.alternates?.canonical).toBeUndefined();
+    expect(meta.openGraph?.url).toBeUndefined();
+    expect(JSON.stringify(meta)).not.toContain("vercel.app");
+    expect(preview.seo.organizationJsonLd().url).toBeUndefined();
     expect(meta.robots).toMatchObject({ index: false, follow: false });
   });
 
@@ -52,6 +55,8 @@ describe("indexing by environment", () => {
     expect(urls.some((u) => u.includes("/portfolio"))).toBe(false);
     const meta = prod.seo.pageMetadata({ title: "Test", description: "d", path: "/custom-patches" });
     expect(meta.alternates?.canonical).toBe("https://www.example-studio.com/custom-patches");
+    expect(meta.openGraph?.url).toBe("https://www.example-studio.com/custom-patches");
+    expect(prod.seo.organizationJsonLd().url).toBe("https://www.example-studio.com");
     expect(meta.robots).toMatchObject({ index: true, follow: true });
   });
 });

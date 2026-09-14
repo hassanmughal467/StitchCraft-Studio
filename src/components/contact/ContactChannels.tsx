@@ -11,13 +11,14 @@ export function ContactChannels({ message, compact, invert }: { message?: string
   const tel = telHref();
   const wa = whatsappHref(message);
   const waDisplay = whatsappDisplay();
-  const addressParts = [site.address.line1, site.address.city, site.address.country].filter(Boolean);
+  const addressParts = [site.address.line1, site.address.city].filter(Boolean);
   const labelClass = invert ? "text-card/55" : "text-stone";
   const linkClass = invert ? "font-medium text-card hover:underline" : "font-medium text-blue hover:underline";
   const bodyClass = invert ? "text-card/75" : "text-ink-soft";
+  const hasLocation = addressParts.length > 0;
 
-  if (!contactChannels.hasAny && !site.hours && !site.responseStatement) {
-    return <p className={`text-sm leading-6 ${bodyClass}`}>{addressParts.join(", ")}</p>;
+  if (!contactChannels.hasAny && !site.hours && !site.responseStatement && !hasLocation) {
+    return null;
   }
 
   return (
@@ -64,7 +65,7 @@ export function ContactChannels({ message, compact, invert }: { message?: string
           <dd className={bodyClass}>{site.hours}</dd>
         </div>
       ) : null}
-      {!compact ? (
+      {!compact && hasLocation ? (
         <div>
           <dt className={`text-xs font-semibold uppercase tracking-[0.12em] ${labelClass}`}>Location</dt>
           <dd className={bodyClass}>{addressParts.join(", ")}</dd>

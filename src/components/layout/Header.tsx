@@ -19,8 +19,11 @@ export function Header() {
     setOpenPath(value ? pathname : null);
   };
   const navRef = useRef<HTMLElement>(null);
+  const menuTriggerRef = useRef<HTMLButtonElement>(null);
+  const openRef = useRef(false);
 
   useEffect(() => {
+    openRef.current = open;
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
@@ -43,7 +46,10 @@ export function Header() {
           openEl.open = false;
           openEl.querySelector<HTMLElement>("summary")?.focus();
         }
-        setOpen(false);
+        if (openRef.current) {
+          setOpen(false);
+          menuTriggerRef.current?.focus();
+        }
       }
     };
     const onPointer = (e: PointerEvent) => {
@@ -106,6 +112,7 @@ export function Header() {
             Quote
           </ButtonLink>
           <button
+            ref={menuTriggerRef}
             type="button"
             className="inline-flex h-11 w-11 items-center justify-center rounded-sm border border-line bg-card"
             aria-expanded={open}

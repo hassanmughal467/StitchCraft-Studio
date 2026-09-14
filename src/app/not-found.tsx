@@ -1,5 +1,13 @@
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Page not found",
+  description: "That page does not exist. Return home or request a quote.",
+  path: "/404",
+  noindex: true,
+});
 
 export default function NotFound() {
   return (

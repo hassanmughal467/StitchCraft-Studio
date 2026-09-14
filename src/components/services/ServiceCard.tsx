@@ -21,7 +21,7 @@ export function ServiceCard({ service, compact }: { service: ServicePage; compac
             Details
           </Link>
           <Link href={`/quote?service=${service.id}`} className="text-charcoal hover:text-blue hover:underline">
-            Get a quote
+            Request a quote
           </Link>
         </div>
       </div>

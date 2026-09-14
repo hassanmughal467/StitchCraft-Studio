@@ -1,12 +1,15 @@
 import Link from "next/link";
+import { ViewTracker } from "@/components/analytics/ViewTracker";
 import { PortfolioPreview } from "@/components/portfolio/PortfolioPreview";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { CommercialFacts, FulfilmentNotes } from "@/components/services/CommercialFacts";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow, SectionHeading } from "@/components/ui/SectionHeading";
 import { ServiceVisual } from "@/components/visuals/ServiceVisual";
+import { quoteCta } from "@/lib/copy";
 import { publishedPortfolio } from "@/lib/portfolio";
 import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
 import { getService, routes, type ServicePage as Service } from "@/lib/services";
@@ -19,6 +22,7 @@ export function ServiceView({ service }: { service: Service }) {
 
   return (
     <>
+      <ViewTracker event={{ name: "service_page_viewed", service: service.id }} />
       <JsonLd data={serviceJsonLd({ name: service.title, description: service.metaDescription, path: service.href, serviceType: service.title })} />
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: route.title, path: route.href }, { name: service.title, path: service.href }])} />
       <JsonLd data={faqJsonLd(service.faqs)} />
@@ -49,7 +53,7 @@ export function ServiceView({ service }: { service: Service }) {
             <h1 className="mt-4 text-[2rem] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-5xl">{service.h1}</h1>
             <p className="mt-5 max-w-xl text-lg leading-8 text-ink-soft">{service.intro}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href={quoteHref}>Request a Quote</ButtonLink>
+              <ButtonLink href={quoteHref}>{quoteCta(service.id)}</ButtonLink>
               <ButtonLink href="#details" variant="secondary">
                 What to send
               </ButtonLink>
@@ -140,7 +144,7 @@ export function ServiceView({ service }: { service: Service }) {
               ))}
             </ul>
             <ButtonLink href={quoteHref} className="mt-8">
-              Get a {service.title} quote
+              {quoteCta(service.id)}
             </ButtonLink>
           </div>
           <div className="grid gap-6 lg:col-span-7">
@@ -165,6 +169,8 @@ export function ServiceView({ service }: { service: Service }) {
                 <p className="mt-3 text-sm leading-6 text-ink-soft">{service.revisions}</p>
               </div>
             </div>
+            <CommercialFacts serviceId={service.id} kind={service.kind} />
+            <FulfilmentNotes kind={service.kind} />
           </div>
         </Container>
       </section>
@@ -194,7 +200,32 @@ export function ServiceView({ service }: { service: Service }) {
       {/* Related */}
       <section className="bg-card py-14 sm:py-16">
         <Container>
-          <SectionHeading eyebrow="Related" title="Often ordered together" />
+          <SectionHeading
+            eyebrow="Related"
+            title="Often ordered together"
+            lede={
+              service.kind === "digital"
+                ? "Read the artwork guidelines and file-format notes before you send a file."
+                : "Shipping, artwork guidelines and file formats sit alongside this quote."
+            }
+          />
+          <p className="mt-4 text-sm leading-6 text-ink-soft">
+            <Link href="/artwork-guidelines" className="font-semibold text-blue hover:underline">
+              Artwork guidelines
+            </Link>
+            {" · "}
+            <Link href="/file-formats" className="font-semibold text-blue hover:underline">
+              File format guide
+            </Link>
+            {service.kind === "physical" ? (
+              <>
+                {" · "}
+                <Link href="/shipping" className="font-semibold text-blue hover:underline">
+                  Shipping information
+                </Link>
+              </>
+            ) : null}
+          </p>
           <ul className="mt-8 grid gap-5 sm:grid-cols-3">
             {related.map((item) => (
               <ServiceCard key={item.id} service={item} compact />
@@ -202,7 +233,7 @@ export function ServiceView({ service }: { service: Service }) {
           </ul>
         </Container>
       </section>
-      <CtaBand title={`Ready to quote your ${service.title.toLowerCase()} job?`} href={quoteHref} />
+      <CtaBand title={`Ready to quote your ${service.title.toLowerCase()} job?`} href={quoteHref} cta={quoteCta(service.id)} />
     </>
   );
 }

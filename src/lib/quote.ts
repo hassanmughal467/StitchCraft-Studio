@@ -65,6 +65,7 @@ export const serviceOptions = {
     productType: ["T-shirts", "Hoodies or sweatshirts", "Long sleeves", "Tote bags", "Mixed order"],
     placements: ["Full front", "Left chest", "Full back", "Sleeve", "Nape", "Multiple locations"],
     supplyMode: ["Stitchcraft supplies the garments", "I will supply the garments", notSure],
+    inkColors: ["1 colour", "2 colours", "3 colours", "4 or more", notSure],
   },
 } as const;
 
@@ -126,6 +127,7 @@ export type QuotePayload = {
   /** JSON array of QuoteRow (size breakdown or patch variants). */
   rows: string;
   garmentColors: string;
+  inkColors: string;
   supplyMode: string;
   /** "|"-joined decoration locations. */
   placements: string;
@@ -170,6 +172,9 @@ export function isVector(service: string) {
 export function isApparel(service: string) {
   return service === "embroidered-apparel" || service === "screen-printing";
 }
+export function isScreenPrint(service: string) {
+  return service === "screen-printing";
+}
 
 const limits: Partial<Record<keyof QuotePayload, number>> = {
   name: 120,
@@ -201,6 +206,7 @@ const limits: Partial<Record<keyof QuotePayload, number>> = {
   quantity: 9,
   rows: 6000,
   garmentColors: 300,
+  inkColors: 40,
   placements: 300,
   shape: 120,
   destinationCity: 120,
@@ -372,6 +378,9 @@ export function validateQuote(data: QuotePayload, ctx: ValidationContext = { fil
     if (opts.border && !includes(opts.border, data.border)) errors.border = "Choose a border finish.";
     if (opts.decoration && !includes(opts.decoration, data.decoration)) errors.decoration = "Choose the decoration type.";
     if (isApparel(data.service) && !data.garmentColors.trim()) errors.garmentColors = "Tell us the garment colour or colours.";
+    if (isScreenPrint(data.service) && !includes(serviceOptions["screen-printing"].inkColors, data.inkColors)) {
+      errors.inkColors = "Tell us the number of ink colours, or choose not sure.";
+    }
     if (!data.destinationCity.trim()) errors.destinationCity = "Enter the delivery city or town.";
     if (!data.postalCode.trim()) errors.postalCode = "Enter the delivery postal or ZIP code.";
   }
@@ -449,6 +458,7 @@ export function emptyQuote(service = "", customerType = "Business"): QuotePayloa
     quantity: "",
     rows: "",
     garmentColors: "",
+    inkColors: "",
     supplyMode: "",
     placements: "",
     decoration: "",
@@ -531,6 +541,7 @@ export function summarizeQuote(p: QuoteSummaryInput, countryLabel: string): Arra
     const rows = parseRows(p.rows).filter((row) => !isBlankRow(row));
     if (rows.length) add(p.service === "custom-patches" ? "Variants" : "Size breakdown", rows.map((r) => [r.label, r.color, r.quantity ? `× ${r.quantity}` : ""].filter(Boolean).join(" ")).join("; "));
     add("Garment colours", p.garmentColors);
+    add("Ink colours", p.inkColors);
     add("Design size", size);
     add("Shape", p.shape);
     add("Backing", p.backing);

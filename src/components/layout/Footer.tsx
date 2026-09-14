@@ -6,7 +6,7 @@ import { footerCompany, footerHelp, footerServices, legalNav } from "@/lib/nav";
 import { site, socialLinks } from "@/lib/site";
 
 export function Footer() {
-  const addressParts = [site.address.line1, site.address.city, site.address.country].filter(Boolean);
+  const addressParts = [site.address.line1, site.address.city].filter(Boolean);
 
   return (
     <footer className="bg-charcoal text-card">
@@ -18,7 +18,7 @@ export function Footer() {
             <div className="mt-6 max-w-sm">
               <ContactChannels compact invert message="Hello Stitchcraft Studio, I have a question." />
             </div>
-            <p className="mt-4 text-sm text-card/60">{addressParts.join(", ")}</p>
+            {addressParts.length ? <p className="mt-4 text-sm text-card/60">{addressParts.join(", ")}</p> : null}
             {socialLinks.length ? (
               <ul className="mt-5 flex flex-wrap gap-4 text-sm text-card/75">
                 {socialLinks.map(([label, href]) => (

@@ -5,10 +5,12 @@ export function CtaBand({
   title = "Tell us what you need",
   body = "Send the service, artwork, quantity and date. We reply with an itemized quote and timing.",
   href = "/quote",
+  cta = "Request a quote",
 }: {
   title?: string;
   body?: string;
   href?: string;
+  cta?: string;
 }) {
   return (
     <section className="bg-blue text-card">
@@ -20,7 +22,7 @@ export function CtaBand({
         </div>
         <div className="flex flex-wrap gap-3">
           <ButtonLink href={href} variant="invert">
-            Request a Quote
+            {cta}
           </ButtonLink>
           <ButtonLink href="/contact" variant="invertGhost">
             Contact Us

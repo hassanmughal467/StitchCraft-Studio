@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { absoluteUrl, siteEnv } from "@/lib/env";
+import { publicAbsoluteUrl, siteEnv } from "@/lib/env";
 import { site } from "@/lib/site";
 
 type BuildMeta = {
@@ -20,19 +20,19 @@ export function robotsFor(noindex = false): NonNullable<Metadata["robots"]> {
 }
 
 export function pageMetadata({ title, description, path, noindex, type = "website" }: BuildMeta): Metadata {
-  const url = absoluteUrl(path);
+  const publicUrl = publicAbsoluteUrl(path);
   const fullTitle = path === "/" ? title : `${title} | ${site.name}`;
 
   return {
     title: path === "/" ? { absolute: title } : title,
     description,
-    // Canonicals are only emitted once the production domain is confirmed.
-    alternates: siteEnv.indexable ? { canonical: url } : undefined,
+    // Canonicals are only emitted once the production domain is confirmed and indexing is on.
+    alternates: siteEnv.indexable && publicUrl ? { canonical: publicUrl } : undefined,
     robots: robotsFor(noindex),
     openGraph: {
       title: fullTitle,
       description,
-      url,
+      ...(publicUrl ? { url: publicUrl } : {}),
       siteName: site.name,
       locale: "en_US",
       type,
@@ -47,15 +47,14 @@ export function pageMetadata({ title, description, path, noindex, type = "websit
 
 /** Organization schema without unconfirmed contact data or opening hours. */
 export function organizationJsonLd() {
+  const origin = siteEnv.productionUrl;
   const sameAs = [site.social.instagram, site.social.linkedin, site.social.facebook].filter(Boolean);
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${siteEnv.baseUrl}/#organization`,
+    ...(origin ? { "@id": `${origin}/#organization`, url: origin, logo: `${origin}/icon` } : {}),
     name: site.name,
     ...(site.legalName ? { legalName: site.legalName } : {}),
-    url: siteEnv.baseUrl,
-    logo: absoluteUrl("/icon"),
     description: site.description,
     address: { "@type": "PostalAddress", addressCountry: "PK" },
     areaServed: ["US", "GB", "AU"],
@@ -66,14 +65,16 @@ export function organizationJsonLd() {
 }
 
 export function serviceJsonLd(input: { name: string; description: string; path: string; serviceType: string }) {
+  const url = publicAbsoluteUrl(input.path);
+  const origin = siteEnv.productionUrl;
   return {
     "@context": "https://schema.org",
     "@type": "Service",
     name: input.name,
     serviceType: input.serviceType,
     description: input.description,
-    url: absoluteUrl(input.path),
-    provider: { "@id": `${siteEnv.baseUrl}/#organization` },
+    ...(url ? { url } : {}),
+    ...(origin ? { provider: { "@id": `${origin}/#organization` } } : {}),
     areaServed: ["US", "GB", "AU"],
   };
 }
@@ -86,22 +87,28 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: absoluteUrl(item.path),
+      ...(publicAbsoluteUrl(item.path) ? { item: publicAbsoluteUrl(item.path) } : {}),
     })),
   };
 }
 
 export function articleJsonLd(input: { headline: string; description: string; path: string; datePublished: string; dateModified?: string }) {
+  const origin = siteEnv.productionUrl;
+  const page = publicAbsoluteUrl(input.path);
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: input.headline,
     description: input.description,
-    mainEntityOfPage: absoluteUrl(input.path),
+    ...(page ? { mainEntityOfPage: page } : {}),
     datePublished: input.datePublished,
     dateModified: input.dateModified ?? input.datePublished,
-    author: { "@id": `${siteEnv.baseUrl}/#organization` },
-    publisher: { "@id": `${siteEnv.baseUrl}/#organization` },
+    ...(origin
+      ? {
+          author: { "@id": `${origin}/#organization` },
+          publisher: { "@id": `${origin}/#organization` },
+        }
+      : {}),
   };
 }
 

@@ -3,12 +3,12 @@ import Link from "next/link";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { displayName, publishedPortfolio } from "@/lib/portfolio";
+import { displayName, featuredPortfolio, publishedPortfolio } from "@/lib/portfolio";
 import { getService } from "@/lib/services";
 
 /** Renders nothing unless approved, published work exists. */
-export function PortfolioPreview({ serviceId, limit = 6 }: { serviceId?: string; limit?: number }) {
-  const items = publishedPortfolio()
+export function PortfolioPreview({ serviceId, limit = 6, featured = false }: { serviceId?: string; limit?: number; featured?: boolean }) {
+  const items = (featured ? featuredPortfolio(limit) : publishedPortfolio())
     .filter((item) => !serviceId || item.service === serviceId)
     .slice(0, limit);
   if (!items.length) return null;
@@ -17,7 +17,7 @@ export function PortfolioPreview({ serviceId, limit = 6 }: { serviceId?: string;
     <section className="border-b border-line py-16 sm:py-20">
       <Container>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <SectionHeading eyebrow="Selected work" title={serviceId ? `${getService(serviceId)?.title} projects` : "Recent projects and studio samples"} />
+          <SectionHeading eyebrow={featured ? "Featured work" : "Selected work"} title={serviceId ? `${getService(serviceId)?.title} projects` : featured ? "Featured projects and studio samples" : "Recent projects and studio samples"} />
           <ButtonLink href="/portfolio" variant="secondary">
             View all work
           </ButtonLink>

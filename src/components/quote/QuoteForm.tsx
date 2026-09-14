@@ -19,6 +19,7 @@ import {
   isDigitizing,
   isLogoDesign,
   isPhysical,
+  isScreenPrint,
   isVector,
   compactRows,
   parseRows,
@@ -100,6 +101,7 @@ const labels: Record<keyof QuoteFieldErrors, string> = {
   quantity: "Total quantity",
   rows: "Breakdown",
   garmentColors: "Garment colours",
+  inkColors: "Ink colours",
   supplyMode: "Supply",
   placements: "Decoration locations",
   decoration: "Decoration type",
@@ -312,6 +314,7 @@ export function QuoteForm({ initialService = "", initialCustomerType = "Business
       const data = (xhr.response ?? {}) as { ok?: boolean; message?: string; errors?: QuoteFieldErrors; reference?: string; notified?: boolean; duplicate?: boolean; retryable?: boolean };
       if (xhr.status >= 200 && xhr.status < 300 && data.ok && data.reference) {
         setStatus({ type: "success", reference: data.reference, message: data.message ?? "", notified: Boolean(data.notified), duplicate: Boolean(data.duplicate), service: submission.service });
+        track({ name: "quote_step_completed", step: 2, service: submission.service });
         track({ name: "quote_submitted", service: submission.service, customerType: submission.customerType, fileCount: files.length, duplicate: Boolean(data.duplicate) });
         sessionRef.current = "";
         done();
@@ -422,7 +425,7 @@ export function QuoteForm({ initialService = "", initialCustomerType = "Business
       {/* Error summary: focused after failed validation; links jump to fields. */}
       <div ref={summaryRef} tabIndex={-1} className="mt-4 outline-none" aria-live="assertive" aria-atomic="true">
         {status.type === "error" ? (
-          <div className="rounded-sm border border-error/40 bg-error/10 px-4 py-3 text-sm text-charcoal">
+          <div role="alert" className="rounded-sm border border-error/40 bg-error/10 px-4 py-3 text-sm text-charcoal">
             <p className="font-semibold text-error">{status.message}</p>
             {status.kind === "offline" ? (
               <p className="mt-2 leading-6">
@@ -687,6 +690,9 @@ export function QuoteForm({ initialService = "", initialCustomerType = "Business
                 <Field uid={uid} id="garmentColors" label="Garment colour or colours" hint="e.g. navy and white, or list per size above." error={errors.garmentColors} required className="sm:col-span-2">
                   {(p) => <input {...p} className={inputClass(errors.garmentColors)} value={values.garmentColors} onChange={(e) => update("garmentColors", e.target.value)} />}
                 </Field>
+              ) : null}
+              {isScreenPrint(values.service) ? (
+                <ChoiceGroup uid={uid} id="inkColors" legend="Ink colours per location" options={opts["screen-printing"].inkColors} value={values.inkColors} onChange={(v) => update("inkColors", v)} required error={errors.inkColors} className="sm:col-span-2" />
               ) : null}
               {patches ? (
                 <>
