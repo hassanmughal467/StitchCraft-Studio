@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { pageMetadata } from "@/lib/seo";
@@ -18,7 +18,7 @@ export default function Page() {
           <h2 className="text-xl font-semibold text-charcoal">Best file types</h2>
           <p>Vector files (AI, EPS, PDF, SVG) with text converted to outlines. If you only have a raster image, send the largest, sharpest PNG or JPG you have.</p>
           <h2 className="mt-8 text-xl font-semibold text-charcoal">Tell us the size</h2>
-          <p>Give the finished width or height in inches or millimetres for the placement. Left chest, cap front and jacket back are different sizes and different files.</p>
+          <p>Give the finished width or height in inches or millimeters for the placement. Left chest, cap front and jacket back are different sizes and different files.</p>
           <h2 className="mt-8 text-xl font-semibold text-charcoal">Fabric, garment and placement</h2>
           <p>Name the garment or product, its color, and where the design goes. Fabric affects how we digitize; garment color affects thread and ink choices.</p>
           <h2 className="mt-8 text-xl font-semibold text-charcoal">Colors</h2>

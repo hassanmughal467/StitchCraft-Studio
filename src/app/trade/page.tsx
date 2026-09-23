@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { PortfolioPreview } from "@/components/portfolio/PortfolioPreview";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -34,7 +34,7 @@ const faqs = [
   { q: "How do I submit a repeat order?", a: "Quote your previous reference number in the quote form or by email. We confirm the approved file, quantity and any changes before running it." },
   { q: "How are my files handled?", a: "Artwork is used only for your job. We do not publish trade work or contact your customers. Files are kept on record for reorders unless you ask us to delete them." },
   { q: "How is trade pricing agreed?", a: "After your first job we agree written trade terms based on typical volume and job mix. Terms are confirmed on each quote; we do not publish a discount table." },
-  { q: "Can you ship directly to my customer?", a: "Yes. Give the delivery address on the quote form. Packaging carries no Stitchcraft branding unless you ask for it." },
+  { q: "Can you ship directly to my customer?", a: "Yes. Give the delivery address on the quote form. Packaging carries no Brandstitch Works branding unless you ask for it." },
 ];
 
 export default function Page() {

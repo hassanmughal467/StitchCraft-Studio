@@ -30,18 +30,19 @@ export default function HomePage() {
       <section className="border-b border-line bg-warm">
         <Container className="grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:py-20">
           <div className="lg:col-span-6">
-            <Eyebrow>Embroidery digitizing · Custom patches · Apparel · Caps</Eyebrow>
+            <Eyebrow>Digitizing · Vector artwork · Patches · Embroidery · Screen printing</Eyebrow>
             <h1 className="mt-4 text-[2rem] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-5xl lg:text-[3.25rem]">
-              Embroidery Digitizing, Custom Patches &amp; Branded Apparel
+              Embroidery Digitizing, Custom Patches and Branded Apparel
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-8 text-ink-soft">
-              From production-ready artwork to finished caps, patches and apparel. Custom work for print shops, brands, teams and individual orders.
+              Prepare your logo for production or bring it to life on patches and apparel. {site.name} helps businesses, apparel
+              decorators, and organizations with digitizing, vector artwork, embroidery, and screen printing.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/quote">Request a Quote</ButtonLink>
               {showWork ? (
                 <ButtonLink href="/portfolio" variant="secondary">
-                  Explore Our Work
+                  View Our Work
                 </ButtonLink>
               ) : (
                 <ButtonLink href="/how-it-works" variant="secondary">
@@ -80,7 +81,7 @@ export default function HomePage() {
                 className="group relative flex flex-col overflow-hidden rounded-sm border border-line bg-warm p-7 transition-colors hover:border-blue sm:p-8"
               >
                 <span className="text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-copper-dark">Route {index + 1}</span>
-                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">{route.title}</h3>
+                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">{route.entryTitle}</h3>
                 <p className="mt-3 max-w-md leading-7 text-ink-soft">{route.body}</p>
                 <ul className="mt-5 flex flex-wrap gap-2">
                   {route.items.map((item) => (
@@ -101,10 +102,10 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* 3. Seven services */}
+      {/* 3. Services */}
       <section className="border-b border-line py-16 sm:py-20">
         <Container>
-          <SectionHeading eyebrow="Services" title="Seven services, one quote form" lede="Each service page explains what to send, what you receive, what affects the price and how revisions work." />
+          <SectionHeading eyebrow="Services" title="Clear services, one quote form" lede="Each service page explains what to send, what you receive, what affects the price and how revisions work." />
           <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <ServiceCard key={service.id} service={service} />

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
@@ -86,7 +86,7 @@ const labels: Record<keyof QuoteFieldErrors, string> = {
   designCount: "Number of designs",
   rush: "Rush",
   intendedUse: "Intended use",
-  colorCount: "Colour count",
+  colorCount: "color count",
   fontsEditable: "Fonts",
   reproductionMode: "Redraw type",
   wording: "Exact wording",
@@ -94,14 +94,14 @@ const labels: Record<keyof QuoteFieldErrors, string> = {
   audience: "Audience",
   requiredUses: "Intended uses",
   styleDirection: "Style direction",
-  colors: "Colour preferences",
+  colors: "color preferences",
   styleReferences: "Reference material",
   deliverables: "Deliverables",
   productType: "Product",
   quantity: "Total quantity",
   rows: "Breakdown",
-  garmentColors: "Garment colours",
-  inkColors: "Ink colours",
+  garmentColors: "Garment colors",
+  inkColors: "Ink colors",
   supplyMode: "Supply",
   placements: "Decoration locations",
   decoration: "Decoration type",
@@ -363,7 +363,7 @@ export function QuoteForm({ initialService = "", initialCustomerType = "Business
           <p className="font-semibold text-charcoal">What happens next</p>
           <ol className="mt-2 list-decimal space-y-1 pl-5">
             <li>We read the request and ask for anything missing.</li>
-            <li>You receive an itemised quotation with timing and payment terms.</li>
+            <li>You receive an itemized quotation with timing and payment terms.</li>
             <li>Work starts after you approve the quotation and the proof.</li>
           </ol>
           {config.responseStatement ? <p className="mt-2">{config.responseStatement}</p> : null}
@@ -624,7 +624,7 @@ export function QuoteForm({ initialService = "", initialCustomerType = "Business
                   </select>
                 )}
               </Field>
-              <Field uid={uid} id="colorCount" label="Approximate colour count" error={errors.colorCount}>
+              <Field uid={uid} id="colorCount" label="Approximate color count" error={errors.colorCount}>
                 {(p) => <input {...p} type="number" inputMode="numeric" min={countLimits.min} max={countLimits.max} step={1} className={inputClass(errors.colorCount)} value={values.colorCount} onChange={(e) => update("colorCount", e.target.value)} />}
               </Field>
               <div className="hidden sm:block" />
@@ -649,7 +649,7 @@ export function QuoteForm({ initialService = "", initialCustomerType = "Business
                 {(p) => <input {...p} className={inputClass(errors.requiredUses)} value={values.requiredUses} onChange={(e) => update("requiredUses", e.target.value)} />}
               </Field>
               <ChoiceGroup uid={uid} id="styleDirection" legend="Style direction" options={opts["custom-logo-design"].styleDirection} value={values.styleDirection} onChange={(v) => update("styleDirection", v)} required error={errors.styleDirection} className="sm:col-span-2" />
-              <Field uid={uid} id="colors" label="Colour preferences" hint="Colours to use or avoid; thread colours if you already know them." error={errors.colors} className="sm:col-span-2">
+              <Field uid={uid} id="colors" label="color preferences" hint="colors to use or avoid; thread colors if you already know them." error={errors.colors} className="sm:col-span-2">
                 {(p) => <input {...p} className={inputClass(errors.colors)} value={values.colors} onChange={(e) => update("colors", e.target.value)} />}
               </Field>
               <ChoiceGroup uid={uid} id="deliverables" legend="Required deliverables" options={opts["custom-logo-design"].deliverables} value={values.deliverables} onChange={(v) => update("deliverables", v)} multiple required error={errors.deliverables} className="sm:col-span-2" />
@@ -672,27 +672,27 @@ export function QuoteForm({ initialService = "", initialCustomerType = "Business
                   </select>
                 )}
               </Field>
-              <Field uid={uid} id="quantity" label="Total quantity" hint={patches ? "All variants together." : "All sizes and colours together."} error={errors.quantity} required>
+              <Field uid={uid} id="quantity" label="Total quantity" hint={patches ? "All variants together." : "All sizes and colors together."} error={errors.quantity} required>
                 {(p) => <input {...p} type="number" inputMode="numeric" min={quantityLimits.min} max={quantityLimits.max} step={1} className={inputClass(errors.quantity)} value={values.quantity} onChange={(e) => update("quantity", e.target.value)} />}
               </Field>
               <RowsEditor
                 uid={uid}
                 id="rows"
-                legend={patches ? "Patch variants" : hats ? "Colour breakdown" : "Size and colour breakdown"}
-                hint={patches ? "Add a row per variant if you need more than one design, size or colourway." : hats ? "Add a row per cap colour if the order is mixed." : "Add a row per size, e.g. M / Navy / 10. Leave empty if you do not know yet."}
-                labels={patches ? { label: "Variant (design or size)", color: "Colourway or notes", quantity: "Qty" } : hats ? { label: "Cap colour", color: "Notes", quantity: "Qty" } : { label: "Size", color: "Garment colour", quantity: "Qty" }}
+                legend={patches ? "Patch variants" : hats ? "color breakdown" : "Size and color breakdown"}
+                hint={patches ? "Add a row per variant if you need more than one design, size or colorway." : hats ? "Add a row per cap color if the order is mixed." : "Add a row per size, e.g. M / Navy / 10. Leave empty if you do not know yet."}
+                labels={patches ? { label: "Variant (design or size)", color: "colorway or notes", quantity: "Qty" } : hats ? { label: "Cap color", color: "Notes", quantity: "Qty" } : { label: "Size", color: "Garment color", quantity: "Qty" }}
                 rows={rows}
                 onChange={(next) => update("rows", stringifyRows(next))}
                 error={errors.rows}
                 addLabel={patches ? "Add a variant" : "Add a row"}
               />
               {apparel ? (
-                <Field uid={uid} id="garmentColors" label="Garment colour or colours" hint="e.g. navy and white, or list per size above." error={errors.garmentColors} required className="sm:col-span-2">
+                <Field uid={uid} id="garmentColors" label="Garment color or colors" hint="e.g. navy and white, or list per size above." error={errors.garmentColors} required className="sm:col-span-2">
                   {(p) => <input {...p} className={inputClass(errors.garmentColors)} value={values.garmentColors} onChange={(e) => update("garmentColors", e.target.value)} />}
                 </Field>
               ) : null}
               {isScreenPrint(values.service) ? (
-                <ChoiceGroup uid={uid} id="inkColors" legend="Ink colours per location" options={opts["screen-printing"].inkColors} value={values.inkColors} onChange={(v) => update("inkColors", v)} required error={errors.inkColors} className="sm:col-span-2" />
+                <ChoiceGroup uid={uid} id="inkColors" legend="Ink colors per location" options={opts["screen-printing"].inkColors} value={values.inkColors} onChange={(v) => update("inkColors", v)} required error={errors.inkColors} className="sm:col-span-2" />
               ) : null}
               {patches ? (
                 <>
@@ -814,7 +814,7 @@ export function QuoteForm({ initialService = "", initialCustomerType = "Business
             {(p) => <input {...p} className={inputClass(errors.budget)} value={values.budget} onChange={(e) => update("budget", e.target.value)} placeholder="e.g. up to $500" />}
           </Field>
 
-          <Field uid={uid} id="details" label="Project description" hint={logo ? "Tell us about the business and what the logo should say about it." : "Anything else we need: colours, thread or ink references, reorder notes."} error={errors.details} required className="sm:col-span-2">
+          <Field uid={uid} id="details" label="Project description" hint={logo ? "Tell us about the business and what the logo should say about it." : "Anything else we need: colors, thread or ink references, reorder notes."} error={errors.details} required className="sm:col-span-2">
             {(p) => <textarea {...p} rows={4} className={inputClass(errors.details)} value={values.details} onChange={(e) => update("details", e.target.value)} />}
           </Field>
 
@@ -856,7 +856,7 @@ export function QuoteForm({ initialService = "", initialCustomerType = "Business
           <label id={`${uid}-consent`} className="flex items-start gap-3 text-sm leading-6 sm:col-span-2">
             <input type="checkbox" name="consent" checked={values.consent} onChange={(e) => update("consent", e.target.checked)} className="mt-1 h-4 w-4 accent-blue" aria-invalid={errors.consent ? true : undefined} aria-describedby={errors.consent ? `${uid}-consent-error` : undefined} />
             <span>
-              Stitchcraft Studio may use these details and files to prepare my quote, as described in the{" "}
+              Brandstitch Works may use these details and files to prepare my quote, as described in the{" "}
               <Link href="/privacy" className="font-semibold text-blue hover:underline">
                 privacy policy
               </Link>

@@ -80,15 +80,21 @@ export function serviceJsonLd(input: { name: string; description: string; path: 
 }
 
 export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
+  const last = items.length - 1;
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      ...(publicAbsoluteUrl(item.path) ? { item: publicAbsoluteUrl(item.path) } : {}),
-    })),
+    itemListElement: items.map((item, index) => {
+      // Intermediate crumbs need absolute item URLs when a production origin is configured.
+      // The final crumb may omit `item` per Google BreadcrumbList guidance.
+      const url = index < last ? publicAbsoluteUrl(item.path) : undefined;
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        ...(url ? { item: url } : {}),
+      };
+    }),
   };
 }
 

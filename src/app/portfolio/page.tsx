@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { PortfolioGallery } from "@/components/portfolio/PortfolioGallery";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { PageHero } from "@/components/sections/PageHero";
@@ -10,7 +10,7 @@ import { services } from "@/lib/services";
 
 export const metadata: Metadata = pageMetadata({
   title: "Portfolio",
-  description: "Embroidery digitizing, patch, apparel and cap projects by Stitchcraft Studio, shown with customer permission or labeled as studio samples.",
+  description: "Embroidery digitizing, patch, apparel and cap projects by Brandstitch Works, shown with customer permission or labeled as studio samples.",
   path: "/portfolio",
   // Not indexable until published work exists.
   noindex: !hasPublishedPortfolio(),

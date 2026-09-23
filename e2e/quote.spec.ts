@@ -1,13 +1,13 @@
-import { expect, test, type Page } from "@playwright/test";
+﻿import { expect, test, type Page } from "@playwright/test";
 
 const services = [
   { id: "embroidery-digitizing", article: "an", title: "Embroidery Digitizing" },
-  { id: "vector-tracing", article: "a", title: "Vector Tracing" },
+  { id: "vector-tracing", article: "a", title: "Vector Artwork" },
   { id: "custom-logo-design", article: "a", title: "Custom Logo Design" },
   { id: "custom-patches", article: "a", title: "Custom Patches" },
-  { id: "embroidered-apparel", article: "an", title: "Embroidered Apparel" },
+  { id: "embroidered-apparel", article: "a", title: "Custom Embroidery" },
   { id: "screen-printing", article: "a", title: "Screen Printing" },
-  { id: "custom-hats", article: "a", title: "Custom Hats" },
+  { id: "custom-hats", article: "a", title: "Custom Hats & Caps" },
 ] as const;
 
 async function fillStepOne(page: Page, service: string, customer: "Business" | "Individual" = "Business") {
@@ -63,8 +63,8 @@ test.describe("quote form", () => {
     await page.getByLabel("Width").fill("3.5");
     await page.getByLabel("Height").fill("2");
     await page.getByRole("radio", { name: /Flexible/ }).check();
-    await page.getByLabel("Project description").fill("Left chest shop logo, one colour.");
-    await page.getByLabel(/Stitchcraft Studio may use these details/).check();
+    await page.getByLabel("Project description").fill("Left chest shop logo, one color.");
+    await page.getByLabel(/Brandstitch Works may use these details/).check();
     await page.getByRole("button", { name: "Send quote request" }).click();
     await expect(page.getByRole("heading", { name: /your reference is SC-\d{6}-[A-Z2-9]{4}/i })).toBeVisible({ timeout: 20_000 });
   });
@@ -78,7 +78,7 @@ test.describe("quote form", () => {
     await page.getByRole("radio", { name: /Exact reproduction/ }).check();
     await page.getByRole("radio", { name: /Flexible/ }).check();
     await page.getByLabel("Project description").fill("Trace the supplied mark.");
-    await page.getByLabel(/Stitchcraft Studio may use these details/).check();
+    await page.getByLabel(/Brandstitch Works may use these details/).check();
     await page.getByRole("button", { name: "Send quote request" }).dblclick();
     await expect(page.getByRole("heading", { name: /your reference is SC-\d{6}-[A-Z2-9]{4}/i })).toBeVisible({ timeout: 20_000 });
     await expect(page.getByRole("heading", { name: /your reference is/i })).toHaveCount(1);

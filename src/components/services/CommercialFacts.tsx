@@ -22,10 +22,20 @@ export function CommercialFacts({ serviceId, kind }: { serviceId: string; kind: 
 export function FulfilmentNotes({ kind }: { kind: "digital" | "physical" }) {
   return (
     <div className="rounded-sm border border-line p-6">
-      <h3 className="text-lg font-semibold">How fulfilment works</h3>
+      <h3 className="text-lg font-semibold">How fulfillment works</h3>
       <ul className="mt-3 space-y-2 text-sm leading-6 text-ink-soft">
-        <li>{fulfilmentCopy.afterApproval}</li>
-        {kind === "physical" ? <li>{fulfilmentCopy.shippingSeparate}</li> : <li>{fulfilmentCopy.digitalDelivery}</li>}
+        {kind === "digital" ? (
+          <>
+            <li>{fulfilmentCopy.afterQuoteDigital}</li>
+            <li>{fulfilmentCopy.digitalDelivery}</li>
+          </>
+        ) : (
+          <>
+            <li>{fulfilmentCopy.afterApprovalPhysical}</li>
+            <li>{fulfilmentCopy.shippingSeparate}</li>
+            <li>{fulfilmentCopy.physicalDelivery}</li>
+          </>
+        )}
         <li>{fulfilmentCopy.deadlinesUnconfirmed}</li>
       </ul>
     </div>

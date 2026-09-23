@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+﻿import { describe, expect, it } from "vitest";
 import {
   emptyQuote,
   resolveCustomerParam,
@@ -87,19 +87,19 @@ describe("dimensions and quantity", () => {
 });
 
 describe("screen printing", () => {
-  it("requires ink colours and destination fields", () => {
+  it("requires ink colors and destination fields", () => {
     const payload = base({
       service: "screen-printing",
       productType: "T-shirts",
       quantity: "24",
       garmentColors: "Navy",
       placements: "Full front",
-      supplyMode: "Stitchcraft supplies the garments",
+      supplyMode: "Brandstitch Works supplies the garments",
       destinationCity: "Austin",
       postalCode: "78701",
     });
     expect(validateQuote(payload).inkColors).toBeDefined();
-    expect(validateQuote({ ...payload, inkColors: "2 colours" })).toEqual({});
+    expect(validateQuote({ ...payload, inkColors: "2 colors" })).toEqual({});
   });
 });
 

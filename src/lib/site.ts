@@ -53,15 +53,15 @@ function validUrl(value: string | undefined, hostIncludes: string) {
 const phone = validPhone(process.env.NEXT_PUBLIC_PHONE);
 
 export const site = {
-  name: "Stitchcraft Studio",
-  shortName: "Stitchcraft",
+  name: "Brandstitch Works",
+  shortName: "Brandstitch",
   copyrightYear: 2026,
   legalName: clean(process.env.NEXT_PUBLIC_LEGAL_NAME),
-  tagline: "Embroidery Digitizing, Custom Patches & Branded Apparel",
+  tagline: "Embroidery Digitizing, Custom Patches and Branded Apparel",
   description:
-    "Embroidery digitizing, vector tracing, logo design, custom patches, embroidered apparel, screen printing and caps for print shops, brands, teams and individual orders.",
+    "Explore embroidery digitizing, vector artwork, custom patches, embroidery, and screen printing with Brandstitch Works. Tell us about your project.",
   /** Truthful location statement. Kept out of the hero; used on About, Contact and footer. */
-  location: "Based in Pakistan, working with customers in the United States, the United Kingdom, Australia and worldwide.",
+  location: "Based in Pakistan, serving businesses and organizations in the United States, the United Kingdom, Australia and worldwide.",
   country: "Pakistan",
   markets: ["United States", "United Kingdom", "Australia"],
   url: siteEnv.baseUrl,
@@ -113,7 +113,7 @@ export const fileUpload = {
 /** WhatsApp deep link with the international number (digits only, no leading +). */
 export function whatsappHref(message?: string) {
   if (!site.whatsapp) return null;
-  const text = encodeURIComponent(message ?? "Hello Stitchcraft Studio, I would like a quote.");
+  const text = encodeURIComponent(message ?? "Hello Brandstitch Works, I would like a quote.");
   return `https://wa.me/${site.whatsapp}?text=${text}`;
 }
 

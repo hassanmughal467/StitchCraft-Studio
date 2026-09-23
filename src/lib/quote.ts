@@ -1,4 +1,4 @@
-import { countLimits, dimensionLimits, fileLimits, isAcceptedExtension, quantityLimits, rowLimits } from "@/lib/config/limits";
+﻿import { countLimits, dimensionLimits, fileLimits, isAcceptedExtension, quantityLimits, rowLimits } from "@/lib/config/limits";
 import { OTHER_COUNTRY, isCountryCode } from "@/lib/countries";
 import { services } from "@/lib/services";
 
@@ -43,7 +43,7 @@ export const serviceOptions = {
   },
   "custom-logo-design": {
     styleDirection: ["Wordmark (typography-led)", "Badge or crest", "Icon with name", "Open to suggestions"],
-    deliverables: ["Vector files (AI, EPS, SVG, PDF)", "PNG for web and documents", "Embroidery file", "Print-ready version", "Colour and clear-space notes"],
+    deliverables: ["Vector files (AI, EPS, SVG, PDF)", "PNG for web and documents", "Embroidery file", "Print-ready version", "color and clear-space notes"],
   },
   "custom-patches": {
     productType: ["Embroidered", "Woven", "PVC", "Chenille", "Printed or sublimated", "Leather", notSure],
@@ -53,19 +53,19 @@ export const serviceOptions = {
   "custom-hats": {
     productType: ["Structured 6-panel", "Unstructured or dad hat", "Trucker", "5-panel or flat peak", "Beanie", notSure],
     decoration: ["Flat embroidery", "3D puff", "Applied patch", notSure],
-    placements: ["Front centre", "Front offset", "Left side", "Right side", "Rear", "Multiple locations"],
-    supplyMode: ["Stitchcraft supplies the caps", "I will supply the caps", notSure],
+    placements: ["Front center", "Front offset", "Left side", "Right side", "Rear", "Multiple locations"],
+    supplyMode: ["Brandstitch Works supplies the caps", "I will supply the caps", notSure],
   },
   "embroidered-apparel": {
     productType: ["Polos", "T-shirts", "Hoodies or sweatshirts", "Jackets or softshells", "Workwear or hi-vis", "Aprons", "Mixed order"],
     placements: ["Left chest", "Right chest", "Sleeve", "Full back", "Nape", "Multiple locations"],
-    supplyMode: ["Stitchcraft supplies the garments", "I will supply the garments", notSure],
+    supplyMode: ["Brandstitch Works supplies the garments", "I will supply the garments", notSure],
   },
   "screen-printing": {
     productType: ["T-shirts", "Hoodies or sweatshirts", "Long sleeves", "Tote bags", "Mixed order"],
     placements: ["Full front", "Left chest", "Full back", "Sleeve", "Nape", "Multiple locations"],
-    supplyMode: ["Stitchcraft supplies the garments", "I will supply the garments", notSure],
-    inkColors: ["1 colour", "2 colours", "3 colours", "4 or more", notSure],
+    supplyMode: ["Brandstitch Works supplies the garments", "I will supply the garments", notSure],
+    inkColors: ["1 color", "2 colors", "3 colors", "4 or more", notSure],
   },
 } as const;
 
@@ -310,7 +310,7 @@ export function validateQuote(data: QuotePayload, ctx: ValidationContext = { fil
     else if (!isoDatePattern.test(data.deadlineDate) || Number.isNaN(Date.parse(data.deadlineDate))) errors.deadlineDate = "Enter a valid date.";
     else if (data.deadlineDate < today) errors.deadlineDate = "The date has already passed. Choose a date from today onwards.";
   }
-  if (!includes(units, data.unit)) errors.unit = "Choose inches or millimetres.";
+  if (!includes(units, data.unit)) errors.unit = "Choose inches or millimeters.";
 
   const needsSize = isDigitizing(data.service) || isPhysical(data.service);
   if (needsSize && !data.sizeUndecided) {
@@ -339,7 +339,7 @@ export function validateQuote(data: QuotePayload, ctx: ValidationContext = { fil
     const opts = serviceOptions["vector-tracing"];
     if (!includes(opts.intendedUse, data.intendedUse)) errors.intendedUse = "Choose how the artwork will be used.";
     if (!includes(opts.formats, data.formatNeeded)) errors.formatNeeded = "Choose the file format you need.";
-    if (data.colorCount.trim() && !isIntegerInRange(data.colorCount, countLimits.min, countLimits.max)) errors.colorCount = "Enter an approximate whole number of colours.";
+    if (data.colorCount.trim() && !isIntegerInRange(data.colorCount, countLimits.min, countLimits.max)) errors.colorCount = "Enter an approximate whole number of colors.";
     if (!includes(opts.fontsEditable, data.fontsEditable)) errors.fontsEditable = "Tell us whether fonts must stay editable.";
     if (!includes(opts.reproductionMode, data.reproductionMode)) errors.reproductionMode = "Choose exact reproduction or a cleaned-up redraw.";
   }
@@ -377,9 +377,9 @@ export function validateQuote(data: QuotePayload, ctx: ValidationContext = { fil
     if (opts.backing && !includes(opts.backing, data.backing)) errors.backing = "Choose a backing type.";
     if (opts.border && !includes(opts.border, data.border)) errors.border = "Choose a border finish.";
     if (opts.decoration && !includes(opts.decoration, data.decoration)) errors.decoration = "Choose the decoration type.";
-    if (isApparel(data.service) && !data.garmentColors.trim()) errors.garmentColors = "Tell us the garment colour or colours.";
+    if (isApparel(data.service) && !data.garmentColors.trim()) errors.garmentColors = "Tell us the garment color or colors.";
     if (isScreenPrint(data.service) && !includes(serviceOptions["screen-printing"].inkColors, data.inkColors)) {
-      errors.inkColors = "Tell us the number of ink colours, or choose not sure.";
+      errors.inkColors = "Tell us the number of ink colors, or choose not sure.";
     }
     if (!data.destinationCity.trim()) errors.destinationCity = "Enter the delivery city or town.";
     if (!data.postalCode.trim()) errors.postalCode = "Enter the delivery postal or ZIP code.";
@@ -521,7 +521,7 @@ export function summarizeQuote(p: QuoteSummaryInput, countryLabel: string): Arra
   } else if (isVector(p.service)) {
     add("Intended use", p.intendedUse);
     add("Formats", p.formatNeeded);
-    add("Approximate colours", p.colorCount);
+    add("Approximate colors", p.colorCount);
     add("Fonts editable", p.fontsEditable);
     add("Redraw type", p.reproductionMode);
     add("Finished size", size);
@@ -532,7 +532,7 @@ export function summarizeQuote(p: QuoteSummaryInput, countryLabel: string): Arra
     add("Audience", p.audience);
     add("Intended uses", p.requiredUses);
     add("Style direction", p.styleDirection);
-    add("Colour preferences", p.colors);
+    add("color preferences", p.colors);
     add("Deliverables", p.deliverables.split("|").filter(Boolean).join(", "));
     add("References", p.styleReferences);
   } else if (isPhysical(p.service)) {
@@ -540,8 +540,8 @@ export function summarizeQuote(p: QuoteSummaryInput, countryLabel: string): Arra
     add("Total quantity", p.quantity);
     const rows = parseRows(p.rows).filter((row) => !isBlankRow(row));
     if (rows.length) add(p.service === "custom-patches" ? "Variants" : "Size breakdown", rows.map((r) => [r.label, r.color, r.quantity ? `× ${r.quantity}` : ""].filter(Boolean).join(" ")).join("; "));
-    add("Garment colours", p.garmentColors);
-    add("Ink colours", p.inkColors);
+    add("Garment colors", p.garmentColors);
+    add("Ink colors", p.inkColors);
     add("Design size", size);
     add("Shape", p.shape);
     add("Backing", p.backing);

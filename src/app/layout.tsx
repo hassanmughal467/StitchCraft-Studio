@@ -42,7 +42,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html lang="en-US" data-scroll-behavior="smooth">
       <body className={cn(sans.variable, "font-sans antialiased")}>
         <JsonLd data={organizationJsonLd()} />
         <a

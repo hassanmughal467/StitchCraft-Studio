@@ -1,9 +1,9 @@
-import { RouteOverview } from "@/components/services/RouteOverview";
+﻿import { RouteOverview } from "@/components/services/RouteOverview";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Digitizing & Artwork Services",
-  description: "Embroidery digitizing, vector tracing and custom logo design. Production-ready files delivered by download for shops, brands and teams.",
+  description: "Embroidery digitizing, vector artwork and custom logo design. Production-ready files delivered by download for shops, brands and teams.",
   path: "/digitizing-artwork",
 });
 

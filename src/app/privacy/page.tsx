@@ -1,11 +1,11 @@
-import { PageHero } from "@/components/sections/PageHero";
+﻿import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Privacy Policy",
-  description: "What information Stitchcraft Studio collects through quote requests, how artwork is stored, and how to ask for deletion.",
+  description: "What information Brandstitch Works collects through quote requests, how artwork is stored, and how to ask for deletion.",
   path: "/privacy",
 });
 

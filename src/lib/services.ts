@@ -37,15 +37,17 @@ export const routes = [
     id: "digitizing",
     href: "/digitizing-artwork",
     title: "Digitizing & Artwork",
-    body: "You receive files: embroidery files for your machine, clean vector artwork, or an original logo.",
-    items: ["Embroidery digitizing", "Vector tracing", "Custom logo design"],
+    entryTitle: "I need production files",
+    body: "Embroidery digitizing, vector artwork, or an original logo — delivered as files ready for your machine or print process.",
+    items: ["Embroidery digitizing", "Vector artwork", "Custom logo design"],
   },
   {
     id: "products",
     href: "/custom-products",
     title: "Custom Products",
-    body: "You receive finished goods: patches, embroidered apparel, printed shirts and caps, shipped to you.",
-    items: ["Custom patches", "Embroidered apparel", "Screen printing", "Hats & caps"],
+    entryTitle: "I need finished products",
+    body: "Custom patches, embroidered apparel, screen-printed shirts and caps — produced to an approved proof and shipped to you.",
+    items: ["Custom patches", "Custom embroidery", "Screen printing", "Hats & caps"],
   },
 ] as const;
 
@@ -58,20 +60,20 @@ export const services: ServicePage[] = [
     visual: "digitizing",
     title: "Embroidery Digitizing",
     short: "Machine-ready stitch files for caps, apparel and patches.",
-    h1: "Embroidery Digitizing for Caps, Apparel & Patches",
-    metaTitle: "Embroidery Digitizing Service for Caps, Apparel & Patches",
+    h1: "Embroidery Digitizing Services for Your Logo",
+    metaTitle: "Embroidery Digitizing Services",
     metaDescription:
-      "Custom embroidery digitizing for left chest, caps, jacket backs, patches and 3D puff. Files delivered in DST, PES, EXP, JEF, EMB and other machine formats with a stitch preview.",
+      "Request embroidery digitizing for left chest logos, caps, and jacket backs. Share your artwork, size, fabric, and machine format with Brandstitch Works.",
     intro:
-      "Send your logo, the sew size and the garment. We build a stitch file for that placement and machine, check it as a preview, and deliver the format your shop runs.",
-    buyers: ["Embroidery shops and decorators", "Brands and apparel programs", "Teams and clubs ordering embroidered kit", "Anyone with a logo that needs to become a stitch file"],
+      "Turn your logo into a stitch file prepared for its intended size, fabric, and placement. Send Brandstitch Works your artwork and embroidery requirements so we can review the design and quote the digitizing work. This service supplies production files; garment embroidery is quoted separately.",
+    buyers: ["Embroidery shops and apparel decorators", "Brands and apparel programs", "Teams and clubs ordering embroidered kit", "Anyone with a logo that needs to become a stitch file"],
     deliverables: [
       "Stitch file in the format you request",
       "Stitch preview (PDF or image) with color sequence",
       "Thread color list for the operator",
       "Production correction if the file needs adjusting on your machine",
     ],
-    inputs: ["Artwork: AI, EPS, PDF, SVG, or a sharp PNG/JPG", "Finished size in inches or millimetres", "Fabric and garment or patch type", "Placement (left chest, cap front, back, sleeve, patch)", "Machine format"],
+    inputs: ["Artwork: AI, EPS, PDF, SVG, or a sharp PNG/JPG", "Finished size in inches or millimeters", "Fabric and garment or patch type", "Placement (left chest, cap front, back, sleeve, patch)", "Machine format, or say you are not sure"],
     specs: [
       {
         title: "Formats we deliver",
@@ -85,10 +87,10 @@ export const services: ServicePage[] = [
         ],
       },
       {
-        title: "Placements we digitize for",
+        title: "Choose your application",
         items: [
           { name: "Left chest and sleeve", note: "Small logos, readable text, tight density control" },
-          { name: "Cap front (flat)", note: "Built for a curved field and centre-out sewing" },
+          { name: "Cap front (flat)", note: "Built for a curved field and center-out sewing" },
           { name: "Cap front (3D puff)", note: "Wide satin columns, foam-height letterforms" },
           { name: "Jacket back", note: "Large panels, sequenced to keep the hoop stable" },
           { name: "Patch files", note: "Fill, border and merrow allowance for patch production" },
@@ -99,14 +101,17 @@ export const services: ServicePage[] = [
     priceFactors: ["Finished size and stitch count", "Number of placements (cap, chest and back are separate files)", "Detail level: small text, gradients, appliqué or puff", "Fabric: knit, pique, twill, fleece or cap buckram", "Rush requests"],
     process: ["Send artwork, size, fabric and format", "Receive the quote and confirm", "We digitize and send a stitch preview", "Approve or request changes", "Download the file in your format"],
     turnaround:
-      "Turnaround is confirmed on the quote and counts from your approval of the quote. Standard left-chest files are usually the fastest; caps, jacket backs, appliqué and 3D puff take longer. Timing covers digitizing and one preview round; it does not include your garment production.",
+      "Turnaround is confirmed on the quote and counts from your confirmation of the quote. Standard left-chest files are usually the fastest; caps, jacket backs, appliqué and 3D puff take longer. Timing covers digitizing and one preview round; it does not include garment embroidery or shipping.",
     revisions:
       "Adjustments that keep the same artwork, size and placement are included. A new size, a different garment type, or a redesigned logo is a new file and is quoted separately.",
     faqs: [
-      { q: "Which formats do you deliver?", a: "DST, PES, EXP, JEF, EMB and other shop formats. Tell us the machine and we will match the format." },
-      { q: "Can one file be used on a cap, a polo and a jacket back?", a: "No. Each placement has a different size, fabric and sewing direction, so each is digitized separately. We quote them together when you order together." },
-      { q: "Will you fix a file that does not sew well on my machine?", a: "Yes. Send a photo of the sew-out and the fabric details and we adjust density, underlay or pull compensation." },
-      { q: "Do you sew a physical sample?", a: "A stitch preview is standard. If you need a physical sew-out before a bulk run, ask on the quote form and we will quote it as a line item." },
+      { q: "Can you digitize a JPG or PNG?", a: "Yes. Sharp artwork works best. Low-resolution images may need cleanup or vector redraw first; we will say so before quoting." },
+      { q: "Which embroidery file formats do you supply?", a: "Machine formats such as DST, PES, EXP, JEF and EMB. Tell us the machine and we match the output. Editable source files are only included when stated on your quote." },
+      { q: "What information is needed for cap digitizing?", a: "Artwork, finished height or width, cap style if known, flat or 3D puff, and your preferred machine format." },
+      { q: "Does changing the size need new digitizing?", a: "Usually yes. A file built for one size does not sew the same at another size. Each size or placement is quoted as its own file." },
+      { q: "Are revisions included?", a: "Adjustments that keep the same artwork, size and placement are included. Redesigns or new placements are quoted separately." },
+      { q: "Is a sew-out included?", a: "A digital stitch preview is standard. A physical sew-out is available when requested and quoted as a line item." },
+      { q: "Do I receive stitched garments or only files?", a: "This service delivers production files. Finished embroidered apparel is a separate service." },
     ],
     related: ["vector-tracing", "custom-patches", "custom-hats"],
   },
@@ -116,17 +121,17 @@ export const services: ServicePage[] = [
     route: "digitizing",
     kind: "digital",
     visual: "vector",
-    title: "Vector Tracing",
-    short: "Clean, scalable vector artwork rebuilt from any logo file.",
-    h1: "Vector Tracing & Logo Redraw Services",
-    metaTitle: "Vector Tracing & Logo Redraw",
+    title: "Vector Artwork",
+    short: "Clean, scalable vector artwork and logo redraw for print and production.",
+    h1: "Vector Art Services for Logos and Print Production",
+    metaTitle: "Vector Art Conversion Services",
     metaDescription:
-      "Convert a JPG, PNG, scan or flattened PDF into clean vector artwork for screen printing, embroidery, signage, engraving and web. Delivered as AI, EPS, SVG and PDF.",
+      "Need editable artwork for printing? Request logo vectorization or raster-to-vector conversion from Brandstitch Works and share your output requirements.",
     intro:
-      "A vector redraw rebuilds your existing logo as clean paths so it prints sharp at any size. It is not a new design: we follow your mark and fix what the source file lost.",
+      "Prepare your logo for print and reuse with vector artwork built around your production requirements. Send a raster image, sketch, or existing logo and tell Brandstitch Works how you plan to use it. We will review the artwork and confirm the scope, output format, and price.",
     buyers: ["Print shops that receive low-resolution customer logos", "Brands with only a JPG or old PDF of their mark", "Sign, engraving and cutting shops", "Anyone preparing artwork for embroidery or screen printing"],
     deliverables: ["Vector files: AI, EPS, SVG and PDF", "Spot colors set to your reference (Pantone or hex) where supplied", "Separated colors for screen printing when requested", "Before/after preview for approval"],
-    inputs: ["The best version of the logo you have", "Intended use: print, embroidery, signage, engraving, web", "Color references, if any", "Text or fonts you already know"],
+    inputs: ["The best version of the logo you have", "Intended use: print, embroidery, signage, engraving, web", "Requested output format", "Color references, if any", "Whether you need design changes or a faithful redraw"],
     specs: [
       {
         title: "Redraw or original design?",
@@ -137,12 +142,12 @@ export const services: ServicePage[] = [
         ],
       },
       {
-        title: "Output uses",
+        title: "Applications",
         items: [
           { name: "Screen printing", note: "Solid spot colors, separations on request" },
+          { name: "Promotional products and branding", note: "Clean paths for reuse across channels" },
           { name: "Embroidery prep", note: "Simplified shapes ready to digitize" },
           { name: "Signage and vinyl", note: "Closed paths for cutting" },
-          { name: "Web and documents", note: "SVG and PDF at any size" },
         ],
       },
     ],
@@ -152,9 +157,12 @@ export const services: ServicePage[] = [
       "Confirmed on the quote. A simple wordmark is usually faster than a multi-color crest. Timing covers the redraw and one review round.",
     revisions: "Corrections that bring the vector closer to your original mark are included. Changing the design itself is logo design work and is quoted separately.",
     faqs: [
-      { q: "Is this the same as a new logo?", a: "No. Tracing reproduces your existing logo. If you want changes to the design, see custom logo design." },
-      { q: "My file is very low quality. Can you still trace it?", a: "Usually yes for simple marks. If the source does not contain enough information we will tell you before quoting." },
-      { q: "Do I get the font?", a: "We match or redraw the lettering as outlines. We do not supply commercial font files." },
+      { q: "Can you convert a low-resolution logo?", a: "Often yes for simple marks. If the source does not contain enough information to rebuild accurately, we will tell you before quoting." },
+      { q: "Will the artwork be editable?", a: "Delivered AI, EPS, SVG and vector PDF files contain editable paths when that is what we produce. A PDF filename alone does not prove vector content; we confirm the format on your quote." },
+      { q: "What is the difference between vector artwork and an embroidery file?", a: "Vector artwork is for print and design reuse. An embroidery file is stitch data for a machine. They are separate services." },
+      { q: "Can you match my font or colors?", a: "We match lettering as outlines and set colors to Pantone or hex references you supply. We do not supply commercial font files." },
+      { q: "Are screen-print color separations included?", a: "Separations are included when requested and listed on your quote. They are not automatic on every vector job." },
+      { q: "Can I request a different design?", a: "Faithful redraws stay on this service. New creative direction is custom logo design and is quoted separately." },
     ],
     related: ["custom-logo-design", "screen-printing", "embroidery-digitizing"],
   },
@@ -167,11 +175,11 @@ export const services: ServicePage[] = [
     title: "Custom Logo Design",
     short: "An original mark designed to work in thread and ink.",
     h1: "Custom Logo Design for Your Business or Brand",
-    metaTitle: "Custom Logo Design for Businesses, Teams & Brands",
+    metaTitle: "Custom Logo Design Services",
     metaDescription:
       "Original logo design with agreed concepts, revision rounds and final files. Designed to work embroidered on caps and apparel as well as in print and on screen.",
     intro:
-      "We design original marks for businesses, teams and brands that will be embroidered and printed. Concepts, revisions and final files are agreed before work starts, so you know exactly what you receive.",
+      "We design original marks for businesses, teams and brands that will be embroidered and printed. Concepts, revisions, ownership terms and final files are agreed before work starts, so you know exactly what you receive.",
     buyers: ["New businesses and side projects", "Teams, clubs and events", "Brands refreshing a mark that never worked in embroidery", "Print shops that want to offer design to their customers"],
     deliverables: ["The agreed number of initial concepts", "Revision rounds stated on your quote", "Final files: AI, EPS, SVG, PDF and PNG", "Color and clear-space notes", "Written usage rights as set out on the quote"],
     inputs: ["Business or team name and exact wording", "Who the logo needs to speak to", "Style references you like or dislike", "Colors you must keep or avoid", "Where it will be used: caps, shirts, patches, signage, web"],
@@ -214,29 +222,29 @@ export const services: ServicePage[] = [
     visual: "patches",
     title: "Custom Patches",
     short: "Embroidered, woven, PVC and chenille patches with your choice of backing.",
-    h1: "Custom Patches for Brands, Teams & Workwear",
-    metaTitle: "Custom Patches: Embroidered, Woven, PVC & Chenille",
+    h1: "Custom Patches Made for Your Logo",
+    metaTitle: "Custom Patches for Businesses & Teams",
     metaDescription:
-      "Custom patches made to your artwork: embroidered, woven, PVC, chenille and printed, with iron-on, sew-on or hook-and-loop backing and merrowed or laser-cut borders.",
+      "Explore custom logo patches for uniforms, teams, and brands. Share your design, size, quantity, backing, and delivery needs for a tailored quote.",
     intro:
-      "Tell us the artwork, size, quantity and how the patch will be attached. We recommend the right patch type for the design, send a proof, and ship the finished patches to you.",
+      "Create patches for uniforms, merchandise, teams, or your own clothing line. Share your artwork, preferred size, quantity, and attachment method with Brandstitch Works. We will help define the specifications and quote your order before production.",
     buyers: ["Brands and merchandise sellers", "Teams, clubs and schools", "Workwear and uniform buyers", "Individuals ordering a small run"],
     deliverables: ["Patches in the type, size and quantity quoted", "Digital proof before production", "Backing and border as specified", "Packed and shipped to your address with tracking"],
-    inputs: ["Artwork", "Shape and finished size", "Quantity", "Patch type, or ask us to recommend one", "Backing and border", "Delivery country and postal code"],
+    inputs: ["Artwork", "Shape and finished size", "Quantity", "Patch type, or ask us to recommend one", "Backing and border", "Delivery country and ZIP or postal code"],
     specs: [
       {
         title: "Patch types",
         items: [
           { name: "Embroidered", note: "Thread on twill. Classic texture; best for bold shapes and text" },
           { name: "Woven", note: "Fine thread weave. Holds small text and thin lines" },
-          { name: "PVC", note: "Moulded rubber. Weatherproof, layered, strong colors" },
+          { name: "PVC", note: "Molded rubber. Weatherproof, layered, strong colors" },
           { name: "Chenille", note: "Raised yarn loops. Varsity and letterman style" },
           { name: "Printed / sublimated", note: "Photographic detail and gradients on fabric" },
           { name: "Leather", note: "Debossed or laser-marked genuine or faux leather" },
         ],
       },
       {
-        title: "Backing options",
+        title: "Attachment choices",
         items: [
           { name: "Iron-on", note: "Heat-seal adhesive for home or press application" },
           { name: "Sew-on", note: "Plain backing for stitching to the garment" },
@@ -257,12 +265,16 @@ export const services: ServicePage[] = [
     priceFactors: ["Patch type and size", "Quantity: unit price drops as quantity rises", "Border style and custom shapes", "Backing choice", "Thread or color count for embroidered and woven patches", "Delivery destination"],
     process: ["Send artwork, size, quantity and backing", "Receive an itemized quote for production and shipping", "Approve the digital proof", "Production", "Dispatch with tracking"],
     turnaround:
-      "Production timing is confirmed on the quote and starts after proof approval and payment. Shipping time to your country is quoted separately from production.",
+      "Production timing is confirmed on the quote and starts after proof approval and payment. Transit time to your destination is quoted separately. Fulfillment ships from Pakistan; US delivery times and any duties depend on destination and carrier.",
     revisions: "Proof changes before approval are included. A change of size, shape or type after approval is re-quoted before production continues.",
     faqs: [
-      { q: "Which patch type should I choose?", a: "Bold designs with text over about 6 mm suit embroidered patches. Small text and fine detail suit woven. Outdoor and gear use suit PVC. Send the artwork and we will recommend one." },
-      { q: "What is the minimum order?", a: "Minimums depend on patch type and are stated on your quote. Small runs are possible; unit cost is higher at low quantities." },
-      { q: "Do you ship to the US, UK and Australia?", a: "Yes. Shipping cost and estimated transit time are itemized on the quote for your postal code." },
+      { q: "What is the minimum quantity?", a: "Minimums depend on patch type and are stated on your quote. Small runs are possible; unit cost is higher at low quantities." },
+      { q: "Which backing should I choose?", a: "Sew-on for permanent attachment, iron-on for heat application where the fabric allows, and hook-and-loop when you need to remove the patch. We can recommend based on how the patch will be used." },
+      { q: "Can small lettering be reproduced?", a: "Fine text suits woven patches better than embroidered. Send the artwork and finished size and we will advise before quoting." },
+      { q: "Is the proof digital or physical?", a: "A digital proof is standard before production. Physical samples are quoted separately when requested." },
+      { q: "When will my order arrive?", a: "Your quote separates production days from estimated transit. Alaska, Hawaii and US territories may need separate confirmation." },
+      { q: "What affects the price?", a: "Type, size, quantity, coverage, backing, setup, rush and shipping. Every quote itemizes these." },
+      { q: "Can I reorder the same design?", a: "Yes. Keep your quote or order reference so we can match the approved specifications." },
     ],
     related: ["embroidery-digitizing", "custom-hats", "embroidered-apparel"],
   },
@@ -272,17 +284,17 @@ export const services: ServicePage[] = [
     route: "products",
     kind: "physical",
     visual: "apparel",
-    title: "Embroidered Apparel",
+    title: "Custom Embroidery",
     short: "Polos, shirts, jackets and workwear embroidered with your logo.",
-    h1: "Custom Embroidered Apparel for Businesses & Teams",
-    metaTitle: "Custom Embroidered Apparel: Polos, Shirts, Jackets & Workwear",
+    h1: "Custom Embroidery for Branded Apparel",
+    metaTitle: "Custom Embroidery for Business Apparel",
     metaDescription:
-      "Custom embroidered polos, shirts, hoodies, jackets and workwear with your logo. Placement, size breakdown and proof agreed before we sew. Shipped to the US, UK and Australia.",
+      "Add your logo to business apparel with custom embroidery. Share garment choices, quantities, placement, and artwork with Brandstitch Works for a quote.",
     intro:
-      "Choose the garment, tell us the sizes and quantity, and send the logo. We confirm placement and decoration size on a proof, embroider the order and ship it to you.",
+      "Put your logo on apparel selected for your team or business. Tell Brandstitch Works which garments you need, how many, and where the design should appear. We will review the artwork and confirm the embroidery and garment requirements in your quote.",
     buyers: ["Businesses ordering staff uniforms", "Teams and clubs", "Hospitality, trades and workwear buyers", "Brands producing small apparel runs"],
     deliverables: ["Garments in the styles, colors and sizes quoted", "Embroidery digitized for the fabric", "Digital placement proof before production", "Packed by size and shipped with tracking"],
-    inputs: ["Garment type and preferred style or brand", "Colors", "Size breakdown (for example S 4, M 10, L 8)", "Logo and any text", "Placement and decoration size", "Delivery country and postal code"],
+    inputs: ["Garment type and preferred style or brand", "Colors", "Size breakdown (for example S 4, M 10, L 8)", "Logo and any text", "Placement and decoration size", "Whether you supply garments or we source them", "Delivery country and ZIP or postal code"],
     specs: [
       {
         title: "Garments",
@@ -305,14 +317,16 @@ export const services: ServicePage[] = [
         ],
       },
     ],
-    priceFactors: ["Garment style and brand", "Quantity and size breakdown", "Stitch count of the design", "Number of placements per garment", "Personalization such as individual names", "Delivery destination"],
+    priceFactors: ["Garment style and brand", "Quantity and size breakdown", "Stitch count of the design", "Number of placements per garment", "Personalization such as individual names", "Digitizing fees when a new file is required", "Delivery destination"],
     process: ["Send garment, sizes, quantity and logo", "Receive an itemized quote", "Approve the placement proof", "Digitizing and production", "Dispatch with tracking"],
-    turnaround: "Production timing depends on garment availability and quantity and is stated on the quote. It starts after proof approval and payment; shipping is quoted separately.",
+    turnaround: "Production timing depends on garment availability and quantity and is stated on the quote. It starts after proof approval and payment; shipping from Pakistan is quoted separately from production.",
     revisions: "Placement and size changes on the proof are included. Changes after approval may need a new embroidery file and a new production date.",
     faqs: [
-      { q: "Can I supply my own garments?", a: "Ask when you request the quote. If we accept customer-supplied garments for your job, the terms and any risk on supplied goods are written on the quote." },
+      { q: "Can I supply my own garments?", a: "Ask when you request the quote. If we accept customer-supplied garments, the terms and any risk on supplied goods are written on the quote." },
+      { q: "Which items are suitable for embroidery?", a: "Most woven and knit polos, shirts, jackets and workwear. Very lightweight knits or coated fabrics may need a different process; we confirm on the quote." },
       { q: "Do you embroider names on individual shirts?", a: "Yes. Send a list of names with sizes and we quote personalization per piece." },
-      { q: "How large can a back design be?", a: "Most jacket and hoodie backs take designs up to about 10–12 in (250–300 mm) wide. We confirm the exact maximum for your garment on the proof." },
+      { q: "Can setup be reused on reorders?", a: "Approved embroidery files stay with your order reference so repeat placements can start from the approved version." },
+      { q: "Is file-only digitizing included?", a: "Digitizing for your order is quoted on the apparel job. Standalone stitch files for your own machines are the embroidery digitizing service." },
     ],
     related: ["embroidery-digitizing", "screen-printing", "custom-hats"],
   },
@@ -324,15 +338,15 @@ export const services: ServicePage[] = [
     visual: "printing",
     title: "Screen Printing",
     short: "Printed shirts and apparel for events, teams and merchandise.",
-    h1: "Custom Screen Printing for Shirts & Apparel",
-    metaTitle: "Custom Screen Printing for T-Shirts, Hoodies & Apparel",
+    h1: "Custom Screen Printing for Shirts and Apparel",
+    metaTitle: "Custom Screen Printing Services",
     metaDescription:
-      "Custom screen printing for t-shirts, hoodies and event apparel. Front, back and sleeve prints with spot colors, proof approval and shipping to the US, UK and Australia.",
+      "Request screen printing for shirts, hoodies, and business apparel. Share your quantities, print locations, artwork, and deadline with Brandstitch Works.",
     intro:
-      "Screen printing suits bold artwork in solid colors on t-shirts, hoodies and event apparel. Send the design, garment colors and quantities and we quote by print location and color count.",
+      "Plan screen-printed apparel for your business, team, or event. Send your design, garment preferences, quantities, and print locations to Brandstitch Works so we can confirm the production approach and prepare your quote.",
     buyers: ["Events, festivals and fundraisers", "Clubs, schools and teams", "Merchandise and streetwear brands", "Shops outsourcing overflow print runs"],
     deliverables: ["Printed garments in the styles, colors and sizes quoted", "Digital placement and color proof", "Consistent color across the run", "Packed by size and shipped with tracking"],
-    inputs: ["Artwork, ideally vector", "Garment style and colors", "Size breakdown and total quantity", "Print locations and sizes", "Number of ink colors per location", "Delivery country and postal code"],
+    inputs: ["Artwork, ideally vector", "Garment style and colors", "Size breakdown and total quantity", "Print locations and sizes", "Number of ink colors per location, or say you are not sure", "Delivery country and ZIP or postal code"],
     specs: [
       {
         title: "Print locations",
@@ -345,12 +359,12 @@ export const services: ServicePage[] = [
         ],
       },
       {
-        title: "Artwork requirements",
+        title: "Artwork and process",
         items: [
           { name: "Spot colors", note: "Each ink color is one screen; fewer colors cost less" },
           { name: "Vector preferred", note: "AI, EPS, PDF or SVG. We can vector-trace a JPG first" },
           { name: "Light or dark garments", note: "Dark shirts usually need an underbase, counted as a color" },
-          { name: "Fine detail", note: "Keep lines above about 0.5 pt and text above about 8 pt" },
+          { name: "Not DTG or DTF", note: "This page covers screen printing only. Other print methods are quoted only when offered separately." },
         ],
       },
     ],
@@ -359,8 +373,9 @@ export const services: ServicePage[] = [
     turnaround: "Production timing is stated on the quote and starts after proof approval and payment. Shipping is quoted separately for your destination.",
     revisions: "Artwork and color changes on the proof are included. Changes after screens are made are quoted as new setup.",
     faqs: [
-      { q: "Is there a minimum quantity?", a: "Screen printing suits runs rather than single pieces because each color needs a screen. Minimums by color count are stated on your quote." },
-      { q: "Can you print photos or gradients?", a: "Screen printing works best with solid spot colors. For photographic artwork we will recommend an alternative on the quote." },
+      { q: "Is there a minimum quantity?", a: "Screen printing suits runs rather than single pieces because each color needs a screen. Minimums by color count are stated on your quote. We do not advertise a blanket no-minimum claim." },
+      { q: "Can you print photos or gradients?", a: "Screen printing works best with solid spot colors. For photographic artwork we will recommend an alternative on the quote rather than labeling every method as screen printing." },
+      { q: "Are separations, screens and setup charged?", a: "Yes. Setup and screens are part of the quote and are itemized. They are spread across the run as quantity rises." },
       { q: "Will the colors match my brand?", a: "Send Pantone references and we mix to match as closely as the ink system allows. The proof shows the intended colors." },
     ],
     related: ["vector-tracing", "embroidered-apparel", "custom-hats"],
@@ -373,8 +388,8 @@ export const services: ServicePage[] = [
     visual: "caps",
     title: "Custom Hats & Caps",
     short: "Embroidered and patch caps in structured, dad-hat and trucker styles.",
-    h1: "Custom Embroidered Hats & Patch Caps",
-    metaTitle: "Custom Embroidered Hats, 3D Puff Caps & Patch Caps",
+    h1: "Custom Embroidered Hats and Caps",
+    metaTitle: "Custom Embroidered Hats & Caps",
     metaDescription:
       "Custom caps with flat embroidery, 3D puff or applied patches. Structured, unstructured, trucker and beanie styles, proof approved before production and shipped with tracking.",
     intro:
@@ -435,22 +450,22 @@ export function getServiceByHref(href: string) {
 export const processSteps = [
   {
     n: "01",
-    title: "Send your requirements",
+    title: "Submit your requirements",
     body: "Choose the service, upload artwork and tell us size, quantity, placement and the date you need it.",
   },
   {
     n: "02",
-    title: "Receive an itemized quote",
+    title: "Receive scope and quote",
     body: "Digital work is quoted per file. Products are quoted per unit with shipping shown separately. Payment terms are on the quote.",
   },
   {
     n: "03",
-    title: "Approve the proof",
+    title: "Approve the applicable proof",
     body: "You approve a stitch preview or placement proof before anything is produced. Changes are made at this stage.",
   },
   {
     n: "04",
-    title: "Receive files or products",
+    title: "Receive files or shipped goods",
     body: "Files are delivered for download. Products are made after approval and payment, then shipped with tracking.",
   },
 ] as const;

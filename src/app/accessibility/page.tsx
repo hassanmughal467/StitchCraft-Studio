@@ -1,11 +1,11 @@
-import { PageHero } from "@/components/sections/PageHero";
+﻿import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Accessibility",
-  description: "Accessibility statement for the Stitchcraft Studio website.",
+  description: "Accessibility statement for the Brandstitch Works website.",
   path: "/accessibility",
 });
 

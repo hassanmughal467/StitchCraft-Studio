@@ -1,10 +1,10 @@
-import { PageHero } from "@/components/sections/PageHero";
+﻿import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Corrections, Remakes & Refunds",
-  description: "How Stitchcraft Studio handles corrections to files, remakes of products and refunds when work does not match the approved proof.",
+  description: "How Brandstitch Works handles corrections to files, remakes of products and refunds when work does not match the approved proof.",
   path: "/refund-policy",
 });
 

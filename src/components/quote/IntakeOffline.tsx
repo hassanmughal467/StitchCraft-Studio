@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { ContactChannels } from "@/components/contact/ContactChannels";
 import { contactChannels } from "@/lib/site";
 
@@ -20,7 +20,7 @@ export function IntakeOffline({ message, service }: { message: string; service?:
             Tell us the service{service ? ` (${service})` : ""}, quantity or size, the date you need it and attach your artwork. We will reply with a reference and a quotation.
           </p>
           <div className="mt-4">
-            <ContactChannels message={`Hello Stitchcraft Studio, I would like a quote${service ? ` for ${service}` : ""}.`} compact />
+            <ContactChannels message={`Hello Brandstitch Works, I would like a quote${service ? ` for ${service}` : ""}.`} compact />
           </div>
         </div>
       ) : (

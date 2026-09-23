@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { ContactChannels } from "@/components/contact/ContactChannels";
 import { QuoteIntake } from "@/components/quote/QuoteIntake";
 import { PageHero } from "@/components/sections/PageHero";
@@ -12,7 +12,7 @@ import { contactChannels } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Request a quote",
-  description: "Request a quote for embroidery digitizing, vector tracing, logo design, custom patches, embroidered apparel, screen printing or caps.",
+  description: "Request a quote for embroidery digitizing, vector artwork, logo design, custom patches, embroidered apparel, screen printing or caps.",
   path: "/quote",
   // Transactional page: excluded from the sitemap and robots, never indexed.
   noindex: true,
@@ -33,7 +33,9 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
         title={service ? `Quote for ${service.title.toLowerCase()}` : "Tell us about your job"}
         lede={
           !status.online
-            ? "Online quote requests are paused. The contact details below still reach the studio."
+            ? contactChannels.hasAny
+              ? "Online quote requests are paused. Use the contact details on this page to reach us, or check back shortly."
+              : "Online quote requests are paused right now. Please check back shortly, or see how ordering works for what we will need."
             : service
               ? `${service.kind === "digital" ? "You receive files by download." : "You receive finished products, shipped with tracking."} Two short steps; attach artwork if you have it.`
               : "Two short steps: who you are and which service, then only the details that service needs. Attach artwork if you have it."
@@ -54,7 +56,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
               <ol className="mt-3 list-decimal space-y-2 pl-5">
                 {status.online ? <li>You receive a reference number as soon as the request is saved.</li> : <li>We log your request and reply with a reference.</li>}
                 <li>We review the details and ask for anything missing.</li>
-                <li>You get an itemised quotation with timing and payment terms.</li>
+                <li>You get an itemized quotation with timing and payment terms.</li>
                 <li>Work starts after you approve the quotation and the proof.</li>
               </ol>
               {status.responseStatement ? <p className="mt-4">{status.responseStatement}</p> : null}
@@ -80,7 +82,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
               <div className="rounded-sm border border-line bg-card p-6">
                 <h2 className="text-base font-semibold text-charcoal">Prefer to talk first?</h2>
                 <div className="mt-3">
-                  <ContactChannels compact message={`Hello Stitchcraft Studio, I have a question before requesting a quote${service ? ` for ${service.title.toLowerCase()}` : ""}.`} />
+                  <ContactChannels compact message={`Hello Brandstitch Works, I have a question before requesting a quote${service ? ` for ${service.title.toLowerCase()}` : ""}.`} />
                 </div>
               </div>
             ) : null}

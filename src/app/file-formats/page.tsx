@@ -1,10 +1,10 @@
-import { PageHero } from "@/components/sections/PageHero";
+﻿import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "File Format Guide",
-  description: "Accepted artwork formats and the embroidery machine and vector formats Stitchcraft Studio delivers.",
+  description: "Accepted artwork formats and the embroidery machine and vector formats Brandstitch Works delivers.",
   path: "/file-formats",
 });
 

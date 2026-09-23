@@ -16,7 +16,7 @@ export const digitizingNav: NavGroup = {
   label: "Digitizing & Artwork",
   children: [
     { href: "/embroidery-digitizing", label: "Embroidery Digitizing" },
-    { href: "/vector-tracing", label: "Vector Tracing" },
+    { href: "/vector-tracing", label: "Vector Artwork" },
     { href: "/custom-logo-design", label: "Custom Logo Design" },
   ],
 };
@@ -26,7 +26,7 @@ export const productsNav: NavGroup = {
   label: "Custom Products",
   children: [
     { href: "/custom-patches", label: "Custom Patches" },
-    { href: "/embroidered-apparel", label: "Embroidered Apparel" },
+    { href: "/embroidered-apparel", label: "Custom Embroidery" },
     { href: "/screen-printing", label: "Screen Printing" },
     { href: "/custom-hats", label: "Custom Hats & Caps" },
   ],
@@ -34,7 +34,7 @@ export const productsNav: NavGroup = {
 
 export const studioNav: NavGroup = {
   href: "/about",
-  label: "Studio",
+  label: "Company",
   children: [
     { href: "/how-it-works", label: "How It Works" },
     { href: "/about", label: "About" },

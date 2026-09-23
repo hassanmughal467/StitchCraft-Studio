@@ -5,12 +5,12 @@ import { services } from "@/lib/services";
  * form stay grammatically consistent ("Request a…" / "Request an…").
  */
 export const quoteCtaByService: Record<string, string> = {
-  "embroidery-digitizing": "Request an embroidery digitizing quote",
-  "vector-tracing": "Request a vector tracing quote",
+  "embroidery-digitizing": "Get a digitizing quote",
+  "vector-tracing": "Get a vector art quote",
   "custom-logo-design": "Request a logo design quote",
-  "custom-patches": "Request a custom patch quote",
-  "embroidered-apparel": "Request an embroidered apparel quote",
-  "screen-printing": "Request a screen-printing quote",
+  "custom-patches": "Get a patch quote",
+  "embroidered-apparel": "Get an embroidery quote",
+  "screen-printing": "Get a screen printing quote",
   "custom-hats": "Request a custom hat quote",
 };
 
